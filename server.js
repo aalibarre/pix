@@ -51,7 +51,8 @@ app.use("/menu", menuRoutes(db));
 // Separate them into separate routes files (see above).
 
 app.get("/", (req, res) => {
-  res.render("index");
+  //res.render("index");
+  res.redirect('/menu');
 });
 
 app.listen(PORT, () => {
