@@ -7,9 +7,7 @@ const cart = {
 //remove from cart
 //clear cart
 //change cart
-addtocart () {
-  let name =
-}
+
 function getCart()
 function clearCart() {
   sessionStorage.removeItem("mycart");
