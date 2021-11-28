@@ -1,47 +1,60 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+  <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
+  <script type="text/javascript" src="/scripts/app.js"></script>
   <title>Grandma's Creamery - Menu</title>
 </head>
+
 <body>
   <h1>welcome! Please take a look at our delicious menu.</h1>
   <main>
-  <table>
-    <thead>
-      <tr>
-        <th scope="col">Name</th>
-        <th scope="col">Image</th>
-        <th scope="col">Description</th>
-        <th scope="col">Quantity</th>
-        <th scope="col">Add to Cart</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% for (let item of menu) { %>
+    <table>
+      <thead>
         <tr>
-          <td><%= item.name %></td>
-          <td><%= item.photo_url %></td>
-          <td><%= item.description %></td>
-          <td>
-            <div>
-              <button>-</button>
-              <span>0</span>
-              <button>+</button>
-            </div>
-          </td>
-          <td>
-            <button type="submit">Add to Cart</button>
-          </td>
+          <th scope="col">Name</th>
+          <th scope="col">Image</th>
+          <th scope="col">Description</th>
+          <th scope="col">Quantity</th>
+          <th scope="col">Add to Cart</th>
         </tr>
-      <% } %>
-    </tbody>
-  </table>
-  <form action="/checkout" method="GET">
-    <button type="submit">Checkout</button>
-  </form>
+      </thead>
+      <tbody>
+        <% for (let item of menu) { %>
+          <tr>
+            <td>
+              <%= item.name %>
+            </td>
+            <td>
+              <%= item.photo_url %>
+            </td>
+            <td>
+              <%= item.description %>
+            </td>
+            <td>
+              <div>
+                <button>-</button>
+                <span>0</span>
+                <button>+</button>
+              </div>
+            </td>
+            <td>
+              <button class="add-cart" type="submit">Add to Cart</button>
+            </td>
+          </tr>
+          <% } %>
+      </tbody>
+    </table>
+    <form action="/checkout" method="GET">
+      <button type="submit">Checkout</button>
+    </form>
   </main>
 </body>
+
 </html>

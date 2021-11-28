@@ -17,7 +17,7 @@ module.exports = (db) => {
           .status(500)
           .json({ error: err.message });
           console.log('######Error######');
-          console.log(e.message);
+          console.log(err.message);
       });
   });
 
