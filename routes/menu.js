@@ -9,6 +9,11 @@ module.exports = (db) => {
       .then(data => {
         const meals = data.rows;
         res.send({ meals });
+      })
+      .catch(err => {
+        res
+          .status(500)
+          .json({ error: err.message });
       });
   });
 
