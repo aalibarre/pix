@@ -21,22 +21,26 @@ module.exports = (db) => {
 
   router.post("/", (req, res) => {
     //when adding to db
-
+    //add to cart, server side
+    //ajax request for button press
    // res.send('goodbye world!');
   });
 
   // /menu/checkout routes
   router.get("/checkout", (req, res) => {
+    //check if cart is empty
+    //receive localstorage/session
     //if button is pressed then go to checkout page
 
     //if the user is not logged in then they cannot checkout
-    const userId = req.session.userId;
-    if (!userId) {
+    const userId = 1;
+    req.session.userId = 1;
+    if (!req.session.userId) {
       res.error("💩");
       console.log('Error user_id is not correct', userId);
       return;
     } else {
-      res.render("/checkout")
+      res.render("./checkout");
     }
     //res.send('hmmm...');
   });
