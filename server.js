@@ -23,7 +23,6 @@ app.use(cookieSession({
   keys: ['key1']
 }));
 
-
 // PG database client/connection setup
 const { Pool } = require("pg");
 const dbParams = require("./lib/db.js");
