@@ -5,7 +5,7 @@ const router  = express.Router();
 module.exports = (db) => {
   // /menu routes
   router.get("/", (req, res) => {
-    db.query(`SELECT * FROM meals;`)
+    db.query(`SELECT * FROM meals WHERE restaurant_id = 1;`)
       .then(data => {
         const meals = data.rows;
         res.send({ meals });
