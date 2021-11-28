@@ -1,0 +1,5 @@
+-- populates seeds into all tables
+\i db/seeds/users.sql
+\i db/seeds/restaurants.sql
+\i db/seeds/meals.sql
+\i db/seeds/orders.sql
