@@ -5,7 +5,11 @@ const router  = express.Router();
 module.exports = (db) => {
   // /menu routes
   router.get("/", (req, res) => {
-    res.send('hello world!');
+    db.query(`SELECT * FROM meals;`)
+      .then(data => {
+        const meals = data.rows;
+        res.send({ meals });
+      });
   });
 
   router.post("/", (req, res) => {
