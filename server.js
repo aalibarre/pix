@@ -3,10 +3,6 @@
 //express
 //cookie
 //body
-
-const cookieSession = require('cookie-session');
-const bodyParser = require('body-parser');
-
 // load .env data into process.env
 require("dotenv").config();
 
@@ -16,6 +12,8 @@ const sassMiddleware = require("./lib/sass-middleware");
 const express = require("express");
 const app = express();
 const morgan = require("morgan");
+const cookieSession = require('cookie-session');
+const bodyParser = require('body-parser');
 
 //set up cookie sessions
 app.use(cookieSession({

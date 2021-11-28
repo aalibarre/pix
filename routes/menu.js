@@ -7,8 +7,10 @@ module.exports = (db) => {
   router.get("/", (req, res) => {
     db.query(`SELECT * FROM meals WHERE restaurant_id = 1;`)
       .then(data => {
-        const meals = data.rows;
-        res.send({ meals });
+        let meals = { menu: data.rows };
+        //send a rendered page with all menu items
+        console.log(meals);
+        res.render('menu', meals);
       })
       .catch(err => {
         res
