@@ -33,7 +33,7 @@ module.exports = (db) => {
     const userId = req.session.userId;
     if (!userId) {
       res.error("💩");
-      console.log('Error user_id not correct', userId);
+      console.log('Error user_id is not correct', userId);
       return;
     } else {
       res.render("/checkout")
@@ -44,7 +44,6 @@ module.exports = (db) => {
   router.post("/checkout", (req, res) => {
    // res.send('what is this?');
     //when user confirms checkout add items to orders table and redirect to menu page
-    db.query(`INSERT INTO orders`)
   });
   return router;
 };
