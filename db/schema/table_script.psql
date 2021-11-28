@@ -1,0 +1,5 @@
+-- populates db with all tables
+\i db/schema/users.sql
+\i db/schema/restaurants.sql
+\i db/schema/meals.sql
+\i db/schema/orders.sql
