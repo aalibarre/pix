@@ -6,11 +6,23 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<<<<<<< HEAD
 
   <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
   <script type="text/javascript" src="/scripts/app.js"></script>
   <script type="text/javascript" src="/scripts/cart.js"></script>
 
+=======
+  <!-- CSS stylesheets -->
+  <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
+  <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
+  <link rel="stylesheet" href="/styles/main.css" type="text/css" />
+  <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
+
+  <!-- JavaScript stylesheets -->
+  <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
+  <script type="text/javascript" src="/scripts/app.js"></script>
+>>>>>>> master
   <title>Grandma's Creamery - Menu</title>
 </head>
 
@@ -20,6 +32,7 @@
     <table>
       <thead>
         <tr>
+<<<<<<< HEAD
           <th scope="col">Name</th>
           <th scope="col">Image</th>
           <th scope="col">Description</th>
@@ -56,6 +69,28 @@
     <form action="/checkout" method="GET">
       <button type="submit">Checkout</button>
     </form>
+=======
+          <td><%= item.name %></td>
+          <td><%= item.photo_url %></td>
+          <td><%= item.description %></td>
+          <td>
+            <div>
+              <button class='button-minus'>-</button>
+              <span>0</span>
+              <button class='button-plus'>+</button>
+            </div>
+          </td>
+          <td>
+            <button type="submit">Add to Cart</button>
+          </td>
+        </tr>
+      <% } %>
+    </tbody>
+  </table>
+  <form action="menu/checkout" method="GET">
+    <button type="submit">Checkout</button>
+  </form>
+>>>>>>> master
   </main>
 </body>
 

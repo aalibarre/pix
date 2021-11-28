@@ -10,6 +10,8 @@ module.exports = (db) => {
         let meals = { menu: data.rows };
         //send a rendered page with all menu items
         console.log(meals);
+        console.log(req.session.cart);
+        req.session.cart = { apple: 1, orange: 10 };
         res.render('menu', meals);
       })
       .catch(err => {
@@ -37,6 +39,7 @@ module.exports = (db) => {
     //if the user is not logged in then they cannot checkout
     const userId = 1;
     req.session.userId = 1;
+    console.log(req.session.cart);
     if (!req.session.userId) {
       res.error("💩");
       console.log('Error user_id is not correct', userId);
