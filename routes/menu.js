@@ -9,20 +9,41 @@ module.exports = (db) => {
       .then(data => {
         const meals = data.rows;
         res.send({ meals });
+      })
+      .catch(err => {
+        res
+          .status(500)
+          .json({ error: err.message });
+          console.log('######Error######');
+          console.log(e.message);
       });
   });
 
   router.post("/", (req, res) => {
-    res.send('goodbye world!');
+    //when adding to db
+
+   // res.send('goodbye world!');
   });
 
   // /menu/checkout routes
   router.get("/checkout", (req, res) => {
-    res.send('hmmm...');
+    //if button is pressed then go to checkout page
+
+    //if the user is not logged in then they cannot checkout
+    const userId = req.session.userId;
+    if (!userId) {
+      res.error("💩");
+      console.log('Error user_id is not correct', userId);
+      return;
+    } else {
+      res.render("/checkout")
+    }
+    //res.send('hmmm...');
   });
 
   router.post("/checkout", (req, res) => {
-    res.send('what is this?');
+   // res.send('what is this?');
+    //when user confirms checkout add items to orders table and redirect to menu page
   });
   return router;
 };

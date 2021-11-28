@@ -1,3 +1,12 @@
+
+//set up modules
+//express
+//cookie
+//body
+
+const cookieSession = require('cookie-session');
+const bodyParser = require('body-parser');
+
 // load .env data into process.env
 require("dotenv").config();
 
@@ -7,6 +16,12 @@ const sassMiddleware = require("./lib/sass-middleware");
 const express = require("express");
 const app = express();
 const morgan = require("morgan");
+
+//set up cookie sessions
+app.use(cookieSession({
+  name: 'session',
+  keys: ['key1']
+}));
 
 // PG database client/connection setup
 const { Pool } = require("pg");
@@ -33,6 +48,7 @@ app.use(
 
 app.use(express.static("public"));
 
+app.use(bodyParser.urlencoded({extended: true}));
 // Separated Routes for each Resource
 // Note: Feel free to replace the example routes below with your own
 const usersRoutes = require("./routes/users");
