@@ -14,7 +14,20 @@
 </head>
 
 <body>
-  <h1>Have fun! 🥔</h1>
+  <% for (let order of orders) { %>
+    <table>
+      <tr>
+          <th> Total Quanitity:</th>
+          <th> Total Price: </th>
+      </tr>
+      <tr>
+          <td><%=order.total_price%></td>
+          <td><%=order.total_quantity%> </td>
+      </tr>
+  </table>
+
+  <% } %>
+
 </body>
 
 </html>
