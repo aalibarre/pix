@@ -1,8 +1,7 @@
-// Client facing scripts here
 
 //Initializations
 //prefixes ("name, quantity, total, etc..")
-this.storage = sessionStorage;
+/* this.storage = sessionStorage;
 const cart = {
   name: "Strawberry",
   quantity: 1,
@@ -17,18 +16,18 @@ const cart = {
       this.storage.setItem(this.cartName, this.toJSONString( cart ));
       this.storage.setItem(this.quantity, "0");
       this.storage.setItem(this.price, "0");
-  }
-};
+  //} */
+//};
 //save food item
 //add to cart
 //loop through add to cart buttons class,
 //add event listener on click
 //on click store values into session
 
-addToCart = () => {
+//addToCart = () => {
   //cap on items in storage
 
-}
+//}
 //remove from cart
 
 //clear cart
@@ -43,8 +42,8 @@ save to sessionstorage
 */
 
 
-myStorage = window.sessionStorage;
-$(document).ready(() => {
+//myStorage = window.sessionStorage;
+/* $(document).ready(() => {
   //console.log("hi");
 
   $('.add-cart-btn').click((event) => {
@@ -53,7 +52,7 @@ $(document).ready(() => {
     //alert("ADDED TO CART");
     event.preventDefault();
   });
-});
+}); */
 
 
 
@@ -70,12 +69,12 @@ Can, remove, change quantity, update price, cancel order, make purchase
 
 
 //Helper Functions
-toJSONObject = (str) => {
+const toJSONObject = function(str) {
   let obj = JSON.parse(str);
   return obj;
-}
+};
 
-toJSONString = (obj) => {
+const toJSONString = function(obj) {
   let str = JSON.stringify(obj);
   return str;
-}
+};

@@ -24,10 +24,22 @@ module.exports = (db) => {
   });
 
   router.post("/", (req, res) => {
+<<<<<<< HEAD
     req.session.cart = req.body;
     //check if exists
     //check if name matches
 
+=======
+    //the data sent by ajax in emu.ejs is stored in req.body
+    /* everything below is for debugging */
+    console.log(req.body);
+    const data = JSON.stringify(req.body);
+    res.send({ data });
+    //when adding to db
+    //add to cart, server side
+    //ajax request for button press
+   // res.send('goodbye world!');
+>>>>>>> master
   });
 
   // /menu/checkout routes
