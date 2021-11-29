@@ -21,28 +21,24 @@
 </head>
 
 <body>
-  <header class="main-header">
+  <% for (let order of orders) { %>
+    <table>
+      <tr>
+        <th> Total Quanitity:</th>
+        <th> Total Price: </th>
+      </tr>
+      <tr>
+        <td>
+          <%=order.total_price%>
+        </td>
+        <td>
+          <%=order.total_quantity%>
+        </td>
+      </tr>
+    </table>
 
-  </header>
+    <% } %>
 
-
-  <section class="container content-section">
-    <h2 class="section-header">CART</h2>
-    <div class="cart-row">
-      <span class="cart-item">ITEM</span>
-      <span class="cart-price">PRICE</span>
-      <span class="cart-quantity">QUANTITY</span>
-    </div>
-    <div class="cart-items">
-    </div>
-    <div class="cart-total">
-      <strong class="cart-total">Total</strong>
-      <span class="cart-price">$0</span>
-    </div>
-    <button class="btn btn-primary btn-purchase" type="button">PURCHASE</button>
-    <button class="btn btn-primary btn-purchase" type="button">Cancel</button>
-
-  </section>
 </body>
 
 </html>

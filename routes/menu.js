@@ -32,22 +32,27 @@ module.exports = (db) => {
 
   // /menu/checkout routes
   router.get("/checkout", (req, res) => {
-    //check if cart is empty
-    //receive localstorage/session
-    //if button is pressed then go to checkout page
+    // const userId = 1;
+    // req.session.userId = 1;
+    // if (!req.session.userId) {
+    //   res.error("💩");
+    //   console.log('Error user_id is not correct', userId);
+    //   return;
+    // }
 
-    //if the user is not logged in then they cannot checkout
-    const userId = 1;
-    req.session.userId = 1;
-    console.log(req.session.cart);
-    if (!req.session.userId) {
-      res.error("💩");
-      console.log('Error user_id is not correct', userId);
-      return;
-    } else {
-      res.render("./checkout");
-    }
-    //res.send('hmmm...');
+    db.query(`SELECT total_price, total_quantity FROM orders WHERE user_id = 2 AND orders.id = 1;`)
+    .then(data => {
+      let orders = data.rows;
+      console.log(orders);
+      res.render('checkout', {orders});
+    })
+    .catch(err => {
+      res
+        .status(500)
+        .json({ error: err.message });
+        console.log('######Error######');
+        console.log(e.message);
+    });
   });
 
   router.post("/checkout", (req, res) => {
