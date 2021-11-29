@@ -18,9 +18,15 @@ const bodyParser = require('body-parser');
 //set up cookie sessions
 app.use(cookieSession({
   name: 'session',
-  keys: ['key1']
+  keys: ['key1'],
+  cookie: {secure: false,
+            maxAge: 600000}
 }));
 
+// app.use((req, res, next) => {
+//   res.locals.cart = req.session.cart;
+//   next();
+// });
 // PG database client/connection setup
 const { Pool } = require("pg");
 const dbParams = require("./lib/db.js");
@@ -69,7 +75,7 @@ app.use("/checkout", menuRoutes(db));
 
 app.get("/", (req, res) => {
   //res.render("index");
-  res.redirect('/menu');
+ // res.redirect('/menu');
 });
 
 app.listen(PORT, () => {
