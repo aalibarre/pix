@@ -24,9 +24,16 @@
           <td><%=order.total_price%></td>
           <td><%=order.total_quantity%> </td>
       </tr>
+
   </table>
 
   <% } %>
+
+  <div><h3>Submit</h3>
+      <form method="POST" action="/menu/checkout" id="form">
+          <button type="submit" id="submit-button">place order</button>
+      </form>
+   </div>
 
 </body>
 
