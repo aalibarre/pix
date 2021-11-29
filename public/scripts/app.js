@@ -28,4 +28,17 @@ $(document).ready(function() {
       qtyCounter.text(qty);
     }
   });
+
+  $('.add-cart-btn').on('click', function(e) {
+    //get the name and qty of item
+    const name = $(this).closest('article').find('h2').text().trim();
+    const qty = $(this).closest('div').find('span').text();
+    //package into an object
+    let item = {};
+    item[name] = qty;
+    //send object to server over ajax
+    $.ajax('/menu/', { method: 'POST', data: item, success: function(data) {
+      console.log(data);
+    }});
+  });
 });
