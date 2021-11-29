@@ -11,7 +11,7 @@ module.exports = (db) => {
         //send a rendered page with all menu items
         console.log(meals);
         console.log(req.session.cart);
-        req.session.cart = { apple: 1, orange: 10 };
+        req.session.cart = { apple: 1, orange: 20 };
         res.render('menu', meals);
       })
       .catch(err => {
@@ -24,6 +24,9 @@ module.exports = (db) => {
   });
 
   router.post("/", (req, res) => {
+    req.session.cart = req.body;
+    //check if exists
+    //check if name matches
 
   });
 
@@ -31,27 +34,33 @@ module.exports = (db) => {
   router.get("/checkout", (req, res) => {
 
     const user_id = req.session.user_id;
-    const orderList = req.session.cart;
-    console.log('Order List ===>', orderList);
-    console.log(typeof orderList);
-    if(orderList) {
-      const cart = orderList;
-      //query for price
-      //save variable
+    const listOfOrders = req.session.cart;
+    //console.log('Order List ===>', orderList);
+    //console.log(typeof orderList);
+    if(listOfOrders) {
+      //loop through all cart
+      //query for price of food item
       //add to cart obj
+      // for (let order of listOfOrders) {
 
-      cartObj = {
-        name: "tomato",
-        quantity: 10,
-        price: 20
-      }
-      let totalPrice = 10;
+      //   db.query(`SELECT price FROM menu WHERE name = $1`, [order.name])
+      //   .then((result) => {
+      //     console.log(result);
+      //     return;
+      //   })
+      //   .catch((err) => {
+      //     console.log('###### Database Query Error ######');
+      //     console.log(err.message);
+      //   });
+
+      // }
+      totalPrice = 10;
       //let totalPrice = cartObj.quantity * cart; Put in loop
       // for (let item of cart) {
       //   totalPrice += (cart[item].price * cart[item].qty);
       // }
 
-      let templateVars = {orders:cart, totalPrice};
+      let templateVars = {orders:listOfOrders, totalPrice};
       res.render("checkout", templateVars);
       //template
       //res.render
