@@ -24,35 +24,50 @@ module.exports = (db) => {
   });
 
   router.post("/", (req, res) => {
-    //when adding to db
-    //add to cart, server side
-
-    const user_id = req.session.user_id;
-    const orderList = req.session.cart;
-    if(user_id && checkoutOrder) {
-      const cart = JSON.parse(orderList);
-
-
-      let totalPrice = 0;
-      for (let item of cart) {
-        totalPrice += (item.price *item.qty);
-      }
-    } else {
-      res.redirect("/");
-      //redirect to main (or show relevent error)
-    }
 
   });
 
   // /menu/checkout routes
   router.get("/checkout", (req, res) => {
-    // const userId = 1;
-    // req.session.userId = 1;
-    // if (!req.session.userId) {
-    //   res.error("💩");
-    //   console.log('Error user_id is not correct', userId);
-    //   return;
-    // }
+
+    const user_id = req.session.user_id;
+    const orderList = req.session.cart;
+    console.log('Order List ===>', orderList);
+    console.log(typeof orderList);
+    if(orderList) {
+      const cart = orderList;
+      //query for price
+      //save variable
+      //add to cart obj
+
+      cartObj = {
+        name: "tomato",
+        quantity: 10,
+        price: 20
+      }
+      let totalPrice = 10;
+      //let totalPrice = cartObj.quantity * cart; Put in loop
+      // for (let item of cart) {
+      //   totalPrice += (cart[item].price * cart[item].qty);
+      // }
+
+      let templateVars = {orders:cart, totalPrice};
+      res.render("checkout", templateVars);
+      //template
+      //res.render
+
+    } else {
+      res.redirect("/");
+      //redirect to main (or show relevent error)
+    }
+
+
+
+
+
+
+
+
 
     db.query(`SELECT total_price, total_quantity FROM orders WHERE user_id = 2 AND orders.id = 1;`)
     .then(data => {
@@ -65,7 +80,7 @@ module.exports = (db) => {
         .status(500)
         .json({ error: err.message });
         console.log('######Error######');
-        console.log(e.message);
+        console.log(err.message);
     });
   });
 

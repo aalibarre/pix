@@ -21,7 +21,7 @@
 </head>
 
 <body>
-  <% for (let order of orders) { %>
+  <% for (let order in orders) { %>
     <table>
       <tr>
         <th> Total Quanitity:</th>
@@ -29,21 +29,23 @@
       </tr>
       <tr>
         <td>
-          <%=order.total_price%>
+          <%=orders[order]%>
         </td>
         <td>
-          <%=order.total_quantity%>
+          <%=totalPrice%>
+
         </td>
       </tr>
     </table>
 
     <% } %>
 
-  <div><h3>Submit</h3>
-      <form method="POST" action="/menu/checkout" id="form">
+      <div>
+        <h3>Submit</h3>
+        <form method="POST" action="/menu/checkout" id="form">
           <button type="submit" id="submit-button">place order</button>
-      </form>
-   </div>
+        </form>
+      </div>
 
 </body>
 
