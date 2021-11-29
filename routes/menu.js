@@ -61,8 +61,13 @@ module.exports = (db) => {
   });
 
   router.post("/checkout", (req, res) => {
-   // res.send('what is this?');
-    //when user confirms checkout add items to orders table and redirect to menu page
-  });
-  return router;
-};
+    // res.send('what is this?');
+    //  when user confirms checkout add items to orders table and redirect to menu page
+    //  db.query(`INSERT INTO orders (resturant_id, user_id, name, total_quantity, total_price) VALUES (1, 2, 'Grandma's Creamery', 10, 60) RETURNING*`)
+
+    return res.redirect(`/menu`);
+   });
+   return router;
+  }
+
+
