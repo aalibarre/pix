@@ -75,7 +75,7 @@ app.use("/checkout", menuRoutes(db));
 
 app.get("/", (req, res) => {
   //res.render("index");
- // res.redirect('/menu');
+  res.redirect('/menu');
 });
 
 app.listen(PORT, () => {

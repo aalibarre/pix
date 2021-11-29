@@ -38,7 +38,7 @@ module.exports = (db) => {
     let quantity = parseInt(data[name]);
     //console.log(typeof name,typeof quantity);
     //console.log(name, quantity);
-    console.log('CART Before >>>>>>>>>>>>', req.session);
+    console.log('CART Before >>>>>>>>>>>>', req.session.cart);
     console.log('Name >>>>>>>>>>>>', name);
     if(req.session.cart[name]) {
       req.session.cart[name] += quantity;
@@ -46,8 +46,9 @@ module.exports = (db) => {
       req.session.cart[name] = quantity;
     }
     console.log('Temp Data ---------> ', data);
-    console.log('CART >>>>>>>>>>>>', req.session);
-
+    console.log('CART >>>>>>>>>>>>', req.session.cart);
+    res.status(200);
+    res.send();
     //if data is zero
     //console.log('Data in cookie session: ', req.session.cart);
     //console.log(Object.keys(data));
@@ -61,13 +62,13 @@ module.exports = (db) => {
 
   // /menu/checkout routes
   router.get("/checkout", (req, res) => {
-    const user_id = 1;
-    req.session.user_id = user_id;
-    if (!req.session.userId) {
-      res.error("💩");
-      console.log('Error user_id is not correct', user_id);
-      return;
-    }
+    // const user_id = 1;
+    // req.session.user_id = user_id;
+    // if (!req.session.userId) {
+    //   res.error("💩");
+    //   console.log('Error user_id is not correct', user_id);
+    //   return;
+    // }
     const listOfOrders = req.session.cart;
     //console.log('Order List ===>', orderList);
     //console.log(typeof orderList);
