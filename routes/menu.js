@@ -26,8 +26,22 @@ module.exports = (db) => {
   router.post("/", (req, res) => {
     //when adding to db
     //add to cart, server side
-    //ajax request for button press
-   // res.send('goodbye world!');
+
+    const user_id = req.session.user_id;
+    const orderList = req.session.cart;
+    if(user_id && checkoutOrder) {
+      const cart = JSON.parse(orderList);
+
+
+      let totalPrice = 0;
+      for (let item of cart) {
+        totalPrice += (item.price *item.qty);
+      }
+    } else {
+      res.redirect("/");
+      //redirect to main (or show relevent error)
+    }
+
   });
 
   // /menu/checkout routes
@@ -58,6 +72,11 @@ module.exports = (db) => {
   router.post("/checkout", (req, res) => {
    // res.send('what is this?');
     //when user confirms checkout add items to orders table and redirect to menu page
+
+
+
+    //send sms
+    //redirect to home
   });
   return router;
 };

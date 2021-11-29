@@ -75,7 +75,7 @@ toJSONObject = (str) => {
   return obj;
 }
 
-toJSONString = (str) => {
+toJSONString = (obj) => {
   let str = JSON.stringify(obj);
   return str;
 }
