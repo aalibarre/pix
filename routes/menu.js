@@ -103,7 +103,7 @@ module.exports = (db) => {
       //res.render
 
     } else {
-      res.redirect("/");
+      return res.redirect("/");
       //redirect to main (or show relevent error)
     }
 
