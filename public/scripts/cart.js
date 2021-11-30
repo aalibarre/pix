@@ -69,6 +69,17 @@ Can, remove, change quantity, update price, cancel order, make purchase
 
 
 //Helper Functions
+const cartCounter = function(obj, state) {
+  const cart = obj.closest('body').find('.cart-icon');
+  //get current cart value
+  let cartValue = Number(cart.text());
+  console.log(cartValue);
+  //increment cart value
+  state ? cartValue += 1 : cartValue -= 1;
+  //update the cart value
+  cart.text(cartValue);
+};
+
 const toJSONObject = function(str) {
   let obj = JSON.parse(str);
   return obj;
