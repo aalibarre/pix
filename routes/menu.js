@@ -120,6 +120,33 @@ module.exports = (db) => {
     //redirect order history or menu
     return res.redirect(`/menu`);
    });
+
+   //get route for order history
+   router.get("/history", (req, res) => {
+     //query db for all orders
+     db.query(`SELECT *
+      FROM orders
+      WHERE user_id = 2
+      AND restaurant_id = 1;
+      `)
+      .then(data => {
+        //get the cart items in the order
+        let items = [];
+        for (const order of data.rows) {
+          //parse JSON string
+          let item = JSON.parse(order.cart_items);
+          items.push(item);
+        }
+        //send the query data into ejs for rendering
+        let orders = { orders: data.rows, items: items };
+        console.log(orders);
+        res.status(200);
+        res.render('history', orders);
+      })
+      .catch(err => {
+        res.status(500).json({ error: err.message });
+      });
+   });
    return router;
   }
 

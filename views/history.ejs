@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <%- include('partials/_links') %>
+  <title>Grandma's Creamery - My Orders</title>
+</head>
+
+<body>
+  <%- include('partials/_header') %>
+    <% for (let i = 0; i < orders.length; i++) { %>
+      <% let a = Object.keys(items[i]); %>
+      <table>
+        <tr>
+          <th>Order Name</th>
+          <th>Order Date</th>
+          <th>LIst of Items</th>
+          <th>Total Quantity</th>
+          <th>Total Price</th>
+        </tr>
+      <tr>
+        <td>
+          <%= orders[i].name %>
+        </td>
+        <td>
+          <%= orders[i].created_at %>
+        </td>
+        <td>
+          <% for (const name in items[i]) { %>
+            <%= name %>
+            <%= items[i][name] %>
+          <% } %>
+        </td>
+        <td>
+          <%= orders[i].total_quantity %>
+        </td>
+        <td>
+          <%= orders[i].total_price %>
+        </td>
+      </tr>
+  </table>
+    <% } %>
+    <form method="GET" action="/menu/">
+      <button type="submit">Back to menu</button>
+    </form>
+</body>
+</html>
