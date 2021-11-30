@@ -12,6 +12,8 @@ $(document).ready(function() {
       qty -= 1;
       console.log(qty);
       qtyCounter.text(qty);
+      //increment cart icon
+      cartCounter($(this), 0);
     }
   });
 
@@ -26,6 +28,8 @@ $(document).ready(function() {
       qty += 1;
       console.log(qty);
       qtyCounter.text(qty);
+      //increment cart icon
+      cartCounter($(this), 1);
     }
   });
 
