@@ -19,8 +19,7 @@ const bodyParser = require('body-parser');
 app.use(cookieSession({
   name: 'session',
   keys: ['key1'],
-  cookie: {secure: false,
-            maxAge: 600000}
+  cookie: {secure: false}
 }));
 
 // app.use((req, res, next) => {
