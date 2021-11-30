@@ -11,15 +11,19 @@
 
 <body>
   <%- include('partials/_header') %>
-    <% for (let order of orders) { %>
+    <% for (let order in listOfOrders) { %>
       <table>
         <tr>
-          <th> Total Quanitity:</th>
-          <th> Total Price: </th>
+          <th>Name</th>
+          <th> Quantity:</th>
+          <th> Price: </th>
         </tr>
         <tr>
           <td>
-            <%=orders[order]%>
+            <%=order%>
+          </td>
+          <td>
+            <%=listOfOrders[order]%>
 
           </td>
           <td>
