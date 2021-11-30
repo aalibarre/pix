@@ -78,8 +78,11 @@ module.exports = (db) => {
 
         db.query(`SELECT price FROM meals WHERE name = $1`, [order])
         .then((result) => {
-          console.log(result);
-          return;
+          let price = result.rows[0].price;
+          //let totalPrice = ( price / 100 ) * listOfOrders[order];
+          console.log('TOTAL PRICE', price);
+          let templateVars = {listOfOrders, price};
+          res.render("checkout", templateVars);
         })
         .catch((err) => {
           console.log('###### Database Query Error ######');
@@ -87,39 +90,24 @@ module.exports = (db) => {
         });
 
       }
-      let quantity = Object.values(req.session.cart);
-      quantity = parseInt(quantity.pop());
-      console.log('Quantity >>>>> ', quantity);
-      console.log(typeof quantity);
-      totalPrice = 10 * quantity;
+      // let quantity = Object.values(req.session.cart);
+      // quantity = parseInt(quantity.pop());
+      // console.log('Quantity >>>>> ', quantity);
+      // totalPrice = 10 * quantity;
       //let totalPrice = cartObj.quantity * cart; Put in loop
       // for (let item of cart) {
       //   totalPrice += (cart[item].price * cart[item].qty);
       // }
 
-      let templateVars = {listOfOrders, totalPrice};
-      return res.render("checkout", templateVars);
+
       //template
       //res.render
 
     } else {
-      return res.redirect("/");
       //redirect to main (or show relevent error)
-    }
+      return res.redirect("/");
 
-    // db.query(`SELECT total_price, total_quantity FROM orders WHERE user_id = 2 AND orders.id = 1;`)
-    // .then(data => {
-    //   let orders = data.rows;
-    //   console.log(orders);
-    //   res.render('checkout', {orders});
-    // })
-    // .catch(err => {
-    //   res
-    //     .status(500)
-    //     .json({ error: err.message });
-    //     console.log('######Error######');
-    //     console.log(err.message);
-    // });
+    }
   });
 
   router.post("/checkout", (req, res) => {
