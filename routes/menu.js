@@ -1,9 +1,6 @@
 // these are GET/POST routes for menu page
 const e = require('express');
 const express = require('express');
-const accountSid = process.env.ACCOUNTSID;
-const authToken = process.env.AUTHTOKEN;
-const client = require('twilio')(accountSid, authToken);
 const router  = express.Router();
 
 module.exports = (db) => {
@@ -81,8 +78,11 @@ module.exports = (db) => {
 
         db.query(`SELECT price FROM meals WHERE name = $1`, [order])
         .then((result) => {
-          console.log(result);
-          return;
+          let price = result.rows[0].price;
+          //let totalPrice = ( price / 100 ) * listOfOrders[order];
+          console.log('TOTAL PRICE', price);
+          let templateVars = {listOfOrders, price};
+          res.render("checkout", templateVars);
         })
         .catch((err) => {
           console.log('###### Database Query Error ######');
@@ -90,39 +90,10 @@ module.exports = (db) => {
         });
 
       }
-      let quantity = Object.values(req.session.cart);
-      quantity = parseInt(quantity.pop());
-      console.log('Quantity >>>>> ', quantity);
-      console.log(typeof quantity);
-      totalPrice = 10 * quantity;
-      //let totalPrice = cartObj.quantity * cart; Put in loop
-      // for (let item of cart) {
-      //   totalPrice += (cart[item].price * cart[item].qty);
-      // }
-
-      let templateVars = {listOfOrders, totalPrice};
-      res.render("checkout", templateVars);
-      //template
-      //res.render
-
     } else {
-      res.redirect("/");
       //redirect to main (or show relevent error)
+      return res.redirect("/");
     }
-
-    // db.query(`SELECT total_price, total_quantity FROM orders WHERE user_id = 2 AND orders.id = 1;`)
-    // .then(data => {
-    //   let orders = data.rows;
-    //   console.log(orders);
-    //   res.render('checkout', {orders});
-    // })
-    // .catch(err => {
-    //   res
-    //     .status(500)
-    //     .json({ error: err.message });
-    //     console.log('######Error######');
-    //     console.log(err.message);
-    // });
   });
 
   router.post("/checkout", (req, res) => {
@@ -132,11 +103,6 @@ module.exports = (db) => {
     db.query(`INSERT INTO orders (restaurant_id , user_id, name, total_quantity, total_price) VALUES (1, 2, 'name', 10, 60) RETURNING*`)
     .then(data => {
       let orders = { checkout: data.rows };
-      console.log('orders', orders);
-      client.messages
-      .create({body: 'A customer placed an order, pleasr check your dashboard ', from: '+15017122661', to: '+6476496220'})
-      .then(message => console.log(message.sid));
-      return res.redirect(`/menu`);
     })
     .catch(err => {
       res
@@ -152,7 +118,7 @@ module.exports = (db) => {
     //save to order history
     //send sms to customer with order confirmation
     //redirect order history or menu
-
+    return res.redirect(`/menu`);
    });
    return router;
   }
