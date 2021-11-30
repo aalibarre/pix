@@ -98,7 +98,7 @@ module.exports = (db) => {
       // }
 
       let templateVars = {listOfOrders, totalPrice};
-      res.render("checkout", templateVars);
+      return res.render("checkout", templateVars);
       //template
       //res.render
 
