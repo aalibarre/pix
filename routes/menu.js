@@ -1,6 +1,9 @@
 // these are GET/POST routes for menu page
 const e = require('express');
 const express = require('express');
+const accountSid = process.env.ACCOUNTSID;
+const authToken = process.env.AUTHTOKEN;
+const client = require('twilio')(accountSid, authToken);
 const router  = express.Router();
 
 module.exports = (db) => {
@@ -117,6 +120,12 @@ module.exports = (db) => {
     db.query(`INSERT INTO orders (restaurant_id , user_id, name, total_quantity, total_price) VALUES (1, 2, 'name', 10, 60) RETURNING*`)
     .then(data => {
       let orders = { checkout: data.rows };
+      console.log('orders', orders);
+      return res.redirect(`/menu`);
+      client.messages
+      .create({body: 'A customer placed an order, pleasr check your dashboard ', from: '+15017122661', to: '+6476496220'})
+      .then(message => console.log(message.sid));
+      return res.redirect(`/menu`);
     })
     .catch(err => {
       res
@@ -132,7 +141,7 @@ module.exports = (db) => {
     //save to order history
     //send sms to customer with order confirmation
     //redirect order history or menu
-    return res.redirect(`/menu`);
+
    });
    return router;
   }
