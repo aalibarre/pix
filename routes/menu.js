@@ -36,7 +36,18 @@ module.exports = (db) => {
     let quantity = parseInt(data[name]);
     console.log('CART Before >>>>>>>>>>>>', req.session.cart);
     console.log('Name >>>>>>>>>>>>', name);
-    console.log('Quantity type', typeof quantity);
+    console.log('Quantity type', req.session.cart[name]);
+
+    //if item doesnt exist in cart and user press qty = 0, then ignore
+    //if item exists in cart and user press qty = 0, remove item from cart
+    if (quantity === 0) {
+      delete req.session.cart[name];
+      console.log('delete >>>>>>>>>>>>>>>');
+      console.log(' CART >>>>>>>', req.session.cart);
+      res.status(200);
+      res.send();
+      return;
+    }
 
     req.session.cart[name] = quantity;
     res.status(200);
