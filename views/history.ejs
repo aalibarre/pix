@@ -10,8 +10,42 @@
 
 <body>
   <%- include('partials/_header') %>
-    <% for (let i = 0; i < orders.length; i++) { %>
-      <% let a = Object.keys(items[i]); %>
+  <h3>Active Orders</h3>
+  <% for (let i = 0; i < activeOrders.length; i++) { %>
+    <% let a = Object.keys(activeItems[i]); %>
+    <table>
+      <tr>
+        <th>Order Name</th>
+        <th>Order Date</th>
+        <th>LIst of Items</th>
+        <th>Total Quantity</th>
+        <th>Total Price</th>
+      </tr>
+    <tr>
+      <td>
+        <%= activeOrders[i].name %>
+      </td>
+      <td>
+        <%= activeOrders[i].created_at %>
+      </td>
+      <td>
+        <% for (const name in activeItems[i]) { %>
+          <%= name %>
+          <%= activeItems[i][name] %>
+        <% } %>
+      </td>
+      <td>
+        <%= activeOrders[i].total_quantity %>
+      </td>
+      <td>
+        <%= activeOrders[i].total_price %>
+      </td>
+    </tr>
+</table>
+  <% } %>
+  <h3>Past Orders</h3>
+    <% for (let i = 0; i < pastOrders.length; i++) { %>
+      <% let a = Object.keys(pastItems[i]); %>
       <table>
         <tr>
           <th>Order Name</th>
@@ -22,22 +56,22 @@
         </tr>
       <tr>
         <td>
-          <%= orders[i].name %>
+          <%= pastOrders[i].name %>
         </td>
         <td>
-          <%= orders[i].created_at %>
+          <%= pastOrders[i].created_at %>
         </td>
         <td>
-          <% for (const name in items[i]) { %>
+          <% for (const name in pastItems[i]) { %>
             <%= name %>
-            <%= items[i][name] %>
+            <%= pastItems[i][name] %>
           <% } %>
         </td>
         <td>
-          <%= orders[i].total_quantity %>
+          <%= pastOrders[i].total_quantity %>
         </td>
         <td>
-          <%= orders[i].total_price %>
+          <%= pastOrders[i].total_price %>
         </td>
       </tr>
   </table>
