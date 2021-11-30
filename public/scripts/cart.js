@@ -74,7 +74,7 @@ const toJSONObject = function(str) {
   return obj;
 };
 
-const toJSONString = function(str) {
-  str = JSON.stringify(obj);
+const toJSONString = function(obj) {
+  let str = JSON.stringify(obj);
   return str;
 };
