@@ -133,7 +133,6 @@ module.exports = (db) => {
     .then(data => {
       let orders = { checkout: data.rows };
       console.log('orders', orders);
-      return res.redirect(`/menu`);
       client.messages
       .create({body: 'A customer placed an order, pleasr check your dashboard ', from: '+15017122661', to: '+6476496220'})
       .then(message => console.log(message.sid));
