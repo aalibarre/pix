@@ -115,7 +115,17 @@ module.exports = (db) => {
     // res.send('what is this?');
     //  when user confirms checkout add items to orders table and redirect to menu page
     //  db.query(`INSERT INTO orders (resturant_id, user_id, name, total_quantity, total_price) VALUES (1, 2, 'Grandma's Creamery', 10, 60) RETURNING*`)
-
+    db.query(`INSERT INTO orders (restaurant_id , user_id, name, total_quantity, total_price) VALUES (1, 2, 'name', 10, 60) RETURNING*`)
+    .then(data => {
+      let orders = { checkout: data.rows };
+    })
+    .catch(err => {
+      res
+        .status(500)
+        .json({ error: err.message });
+        console.log('######Error######');
+        console.log(err.message);
+    });
 
 
     //sms to owner of new order
