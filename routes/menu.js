@@ -39,7 +39,7 @@ module.exports = (db) => {
     let quantity = parseInt(data[name]);
     console.log('CART Before >>>>>>>>>>>>', req.session.cart);
     console.log('Name >>>>>>>>>>>>', name);
-    console.log('Quantity type', req.session.cart[name]);
+   // console.log('Quantity type', req.session.cart[name]);
 
     //if item doesnt exist in cart and user press qty = 0, then ignore
     //if item exists in cart and user press qty = 0, remove item from cart
@@ -70,33 +70,82 @@ module.exports = (db) => {
   router.get("/checkout", (req, res) => {
 
     const listOfOrders = req.session.cart;
-    console.log(listOfOrders);
+    console.log('List of Orders', listOfOrders);
+    console.log('Length of listOfOrders', Object.keys(listOfOrders).length);
+
     //console.log('Order List ===>', orderList);
     //console.log(typeof orderList);
+
+
     if(listOfOrders) { //!Add check for user id
       //loop through all cart
       //query for price of food item
       //add to cart obj
-      for (let order in listOfOrders) {
+      //Start promise
+      let priceObj = {};
 
-        db.query(`SELECT price FROM meals WHERE name = $1`, [order])
-        .then((result) => {
-          let price = result.rows[0].price;
-          //let totalPrice = ( price / 100 ) * listOfOrders[order];
-          console.log('TOTAL PRICE', price);
-          let templateVars = {listOfOrders, price};
-          return res.render("checkout", templateVars);
-        })
-        .catch((err) => {
-          console.log('###### Database Query Error ######');
-          console.log(err.message);
-        });
+      console.log('Outside Promise', listOfOrders);
+      const myPromise = new Promise((resolve, reject) => {
+        console.log('Entered Promise', listOfOrders);
+        let queryCounter = 0;
+        let loopCounter = 0;
+        // for(let i = 0; i <= 10; i ++) {
+        //   console.log(i);
+        // }
+        let index = 0;
+        let listLength = Object.keys(listOfOrders).length;
+         for (let order in listOfOrders ) {
+          console.log('loop');
+          db.query(`SELECT price FROM meals WHERE name = $1`, [order])
+          .then((result) => {
+            let price = result.rows[0].price;
+            //console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> Result', result);
+            //console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> Result rows', result.rows);
+            //console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> Result rows at index 0', result.rows[0]);
 
-      }
+            priceObj[order] = price;
+            //priceArr.push(price);
+            //console.log('TemplateVars', templateVars);
+            //res.status(200);
+            //resolve(priceArr);
+            //queryCounter++;
+            //loopCounter = index;
+            index++;
+            //console.log('Query Counter', queryCounter);
+            //console.log('Loop Counter', loopCounter);
+            console.log('Index', index);
+            console.log('List Length', listLength);
+            if(index === listLength) {
+              return resolve(priceObj);
+            }
+
+           })
+          .catch((err) => {
+            console.log('###### Database Query Error ######');
+            console.log(err.message);
+            reject(err);
+          });
+         }
+        //reject('ErroRRRR');
+      });
+
+      myPromise
+      .then((price)=>{
+
+        let templateVars = {listOfOrders, price};
+        console.log('TemplateVars', templateVars);
+        //console.log('Price Array', price);
+        return res.render("checkout", templateVars);
+    })
+    .catch((err) => {
+      console.log(err.message);
+    });
     } else {
+      console.log('Redirect error');
       //redirect to main (or show relevent error)
       return res.redirect("/");
     }
+
   });
 
   router.post("/checkout", (req, res) => {
@@ -108,12 +157,17 @@ module.exports = (db) => {
     // res.send('what is this?');
     //  when user confirms checkout add items to orders table and redirect to menu page
     //  db.query(`INSERT INTO orders (resturant_id, user_id, name, total_quantity, total_price) VALUES (1, 2, 'Grandma's Creamery', 10, 60) RETURNING*`)
-    db.query(`INSERT INTO orders (restaurant_id , user_id, name, total_quantity, total_price, created_at, cart_items) VALUES (1, 2, 'name', 10, 60, NOW(), ${cart_items}) RETURNING*`)
+    console.log('Cart Items', cart_items);
+    console.log(typeof cart_items);
+    console.log('Before DB query');
+    db.query(`INSERT INTO orders (restaurant_id , user_id, name, total_quantity, total_price, pending, created_at, cart_items) VALUES (1, 2, 'name', 10, 60, true, NOW(), $1) RETURNING *;`,[cart_items])
     .then(data => {
+      console.log('After DB query');
       let orders = { checkout: data.rows };
       console.log('orders', orders)
       req.session.cart = null;
-
+      res.status(200);
+      res.send();
     })
     .catch(err => {
       res
@@ -149,6 +203,7 @@ module.exports = (db) => {
       .then(data => {
         //active orders
         let activeOrders = data.rows;
+        console.log('Active Orders', activeOrders);
         let activeItems = getItems(activeOrders);
         //past orders
         let pastOrders;
@@ -161,6 +216,7 @@ module.exports = (db) => {
         `)
         .then(data => {
           pastOrders = data.rows;
+          console.log('Past Orders', pastOrders);
           let pastItems = getItems(pastOrders);
           console.log(pastOrders);
           /* console.log(activeOrders); */
@@ -186,6 +242,7 @@ function getItems(orders) {
   for (const order of orders) {
     //parse JSON string
     let item = JSON.parse(order.cart_items);
+    console.log('Cart Items  Object', item);
     items.push(item);
   }
   return items;
