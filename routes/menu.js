@@ -6,19 +6,13 @@ const router  = express.Router();
 module.exports = (db) => {
   // /menu routes
   router.get("/", (req, res) => {
-
     db.query(`SELECT * FROM meals WHERE restaurant_id = 1;`)
       .then(data => {
         let meals = { menu: data.rows };
         //send a rendered page with all menu items
         //console.log(meals);
         console.log('Get Route session', req.session.cart);
-        let cartData = req.session.cart;
-        let menu = {
-          meals,
-          cartData
-        }
-        res.render('menu', menu);
+        res.render('menu', meals);
       })
       .catch(err => {
         res
@@ -103,15 +97,12 @@ module.exports = (db) => {
   });
 
   router.post("/checkout", (req, res) => {
-    req.session.cart = null;
     // res.send('what is this?');
     //  when user confirms checkout add items to orders table and redirect to menu page
     //  db.query(`INSERT INTO orders (resturant_id, user_id, name, total_quantity, total_price) VALUES (1, 2, 'Grandma's Creamery', 10, 60) RETURNING*`)
-    db.query(`INSERT INTO orders (restaurant_id , user_id, name, total_quantity, total_price, created_at) VALUES (1, 2, 'name', 10, 60, NOW()) RETURNING*`)
+    db.query(`INSERT INTO orders (restaurant_id , user_id, name, total_quantity, total_price) VALUES (1, 2, 'name', 10, 60) RETURNING*`)
     .then(data => {
       let orders = { checkout: data.rows };
-      console.log('orders', orders)
-
     })
     .catch(err => {
       res
@@ -120,18 +111,15 @@ module.exports = (db) => {
         console.log('######Error######');
         console.log(err.message);
     });
-//sms to owner of new order
-client.messages
-         .create({body: 'A customer placed an order, please check your dashboard ', from: '+12284324910', to: '+16476496220'})
-         .then(message => console.log(message.sid));
 
+
+    //sms to owner of new order
     //once we get a reply from owner
     //save to order history
     //send sms to customer with order confirmation
     //redirect order history or menu
     return res.redirect(`/menu`);
    });
-
    return router;
   }
 

@@ -11,36 +11,79 @@
 
 <body>
   <%- include('partials/_header') %>
-    <% for (let order in listOfOrders) { %>
-      <table>
-        <tr>
-          <th>Name</th>
-          <th> Quantity:</th>
-          <th> Price: </th>
-        </tr>
-        <tr>
-          <td>
-            <%=order%>
-          </td>
-          <td>
-            <%=listOfOrders[order]%>
-
-          </td>
-          <td>
-            <%=listOfOrders[order] * (price / 100)%>
-          </td>
-        </tr>
-      </table>
-
-      <% } %>
-
-        <div>
-          <h3>Submit</h3>
-          <form method="POST" action="/menu/checkout" id="form">
-            <button type="submit" id="submit-button">place order</button>
-          </form>
+    <div class="cart-container">
+      <header class="cart-header">
+        <div class="cart-title">
+          <h2>My Order</h2>
         </div>
+        <button class="exit"> X </button>
+      </header>
+      <div class="cart-content">
+        <% for (let order in listOfOrders) { %>
+          <div class="cart-item">
+            <h1 class="item-name">
+              <%=order%>
+            </h1>
+            <div class="right-side-container">
+              <p class="quantity">
+                <%=listOfOrders[order]%>
+              </p>
+              <p class="price">
+                <%=listOfOrders[order] * (price / 100)%>
+              </p>
+              <button class="remove-item-btn"></button>
+            </div>
+
+          </div>
+          <% } %>
+      </div>
+      <footer class="cart-footer">
+        <form method="POST" action="/menu/checkout" id="form">
+          <button type="submit" id="submit-button" class="cart-checkout-btn">Place Order</button>
+        </form>
+      </footer>
+    </div>
+
 
 </body>
 
 </html>
+<div class="container">
+  <header>
+    <div class="header-menu">
+      <p>Back</p>
+    </div>
+    <div class="header-checkout">
+      <p>Checkout</p>
+    </div>
+  </header>
+  <p>Address: </p>
+  <p>total quantity: </p>
+  <div class="item-container">
+    <% for (let order in listOfOrders) { %>
+      <div class="cart-item">
+        <div class="item-header">
+          <h1 class="item-name">
+            <%=order%>
+          </h1>
+        </div>
+        <div class="item-footer">
+          <p class="quantity">
+            <%=listOfOrders[order]%>
+          </p>
+          <p class="price">
+            <%=listOfOrders[order] * (price / 100)%>
+          </p>
+        </div>
+      </div>
+      //end loop
+  </div>
+  <footer>
+    <div class="cart-totals">
+
+    </div>
+    <button class=checkout-btn>
+      Checkout
+    </button>
+  </footer>
+</div>

@@ -5,44 +5,15 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
   <%- include('partials/_links') %>
     <title>Grandma's Creamery - Menu</title>
 </head>
 
 <body class="container">
   <%- include('partials/_header') %>
-
-    <div class="cart-container">
-      <header class="cart-header">
-        <div class="cart-title">
-          <h2>My Order</h2>
-        </div>
-        <button class="exit"> X </button>
-      </header>
-      <div class="cart-content">
-        <% for (let item in cartData) { %>
-          <div class="cart-item">
-            <span class="item-name">
-              <%= (item) %>
-            </span>
-            <div class="right-side-container">
-              <p class="price">
-                <%= meals.menu.find((a)=> a.name === item).price %>
-              </p>
-              <button class="remove-item-btn"></button>
-            </div>
-          </div>
-          <% } %>
-      </div>
-      <footer class="cart-footer">
-        <button class="cart-checkout-btn">Checkout</button>
-      </footer>
-    </div>
-
     <main class="container col">
       <h1>welcome! Please take a look at our delicious menu.</h1>
-      <% for (let item of meals.menu) { %>
+      <% for (let item of menu) { %>
         <article class="col gy-5">
           <h2>
             <%= item.name %>
