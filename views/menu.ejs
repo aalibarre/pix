@@ -1,35 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <%- include('partials/_links') %>
-  <title>Grandma's Creamery - Menu</title>
+    <title>Grandma's Creamery - Menu</title>
 </head>
 
 <body class="container">
   <%- include('partials/_header') %>
-  <main class="container col">
-    <h1>welcome! Please take a look at our delicious menu.</h1>
-    <% for (let item of menu) { %>
-      <article class="col gy-5">
-        <h2>
-          <%= item.name %>
-        </h2>
-        <figure class="figure">
-          <img src=<%= item.photo_url %> class="figure-img img-fluid-rounded" alt="picture of store item">
-        </figure>
-        <div class='description'>
-          <p><%= item.description %></p>
-          <div>
+    <main class="container col">
+      <h1>welcome! Please take a look at our delicious menu.</h1>
+      <% for (let item of menu) { %>
+        <article class="col gy-5">
+          <h2>
+            <%= item.name %>
+          </h2>
+          <figure class="figure">
+            <img src=<%=item.photo_url %> class="figure-img img-fluid-rounded" alt="picture of store item">
+          </figure>
+          <div class='description'>
+            <p>
+              <%= item.description %>
+            </p>
             <div>
-              <button class='button-minus'>-</button>
-              <span>0</span>
-              <button class='button-plus'>+</button>
+              <div>
+                <button class='button-minus'>-</button>
+                <span>0</span>
+                <button class='button-plus'>+</button>
+              </div>
+              <button type="submit" class="add-cart-btn">Add to Cart</button>
             </div>
-            <button type="submit" class="add-cart-btn">Add to Cart</button>
           </div>
+<<<<<<< HEAD
+        </article>
+        <% } %>
+          <form action="menu/checkout" method="GET">
+            <button type="submit">Checkout</button>
+          </form>
+    </main>
+=======
         </div>
       </article>
       <% } %>
@@ -37,6 +49,7 @@
           <button type="submit">Checkout</button>
         </form>
   </main>
+>>>>>>> master
 </body>
 
 </html>

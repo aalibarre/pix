@@ -45,4 +45,9 @@ $(document).ready(function() {
       console.log(data);
     }});
   });
+
+  $('.cart-btn').on('click', function (e) {
+    console.log('Carttttttttttt');
+  })
 });
+

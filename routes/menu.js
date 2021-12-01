@@ -85,7 +85,7 @@ module.exports = (db) => {
           //let totalPrice = ( price / 100 ) * listOfOrders[order];
           console.log('TOTAL PRICE', price);
           let templateVars = {listOfOrders, price};
-          res.render("checkout", templateVars);
+          return res.render("checkout", templateVars);
         })
         .catch((err) => {
           console.log('###### Database Query Error ######');
@@ -127,6 +127,8 @@ module.exports = (db) => {
 //          .create({body: 'A customer placed an order, please check your dashboard ', from: '+12284324910', to: '+16476496220'})
 //          .then(message => console.log(message.sid));
 
+
+    //sms to owner of new order
     //once we get a reply from owner
     //save to order history
     //send sms to customer with order confirmation
