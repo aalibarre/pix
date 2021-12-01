@@ -34,14 +34,20 @@ $(document).ready(function() {
   });
 
   $('.add-cart-btn').on('click', function(e) {
-    //get the name and qty of item
+    //get the name, qty, price of item
     const name = $(this).closest('article').find('h2').text().trim();
     const qty = $(this).closest('div').find('span').text();
+    const price = $(this).closest('article').find('h3').text().trim();
     //package into an object
-    let item = {};
-    item[name] = qty;
+    let itemQty = {};
+    itemQty[name] = qty;
+    let itemPrice = {};
+    itemPrice[name] = price;
     //send object to server over ajax
-    $.ajax('/menu/', { method: 'POST', data: item, success: function(data) {
+    let data = {itemQty, itemPrice};
+    //data = JSON.stringify(data);
+    console.log(data);
+    $.ajax('/menu/', { method: 'POST', data: data, success: function(data) {
       console.log(data);
     }});
   });

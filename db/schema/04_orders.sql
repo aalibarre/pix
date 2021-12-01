@@ -9,5 +9,6 @@ CREATE TABLE orders (
   total_price INTEGER NOT NULL DEFAULT 0,
   pending BOOLEAN NOT NULL DEFAULT TRUE,
   created_at DATE,
-  cart_items TEXT
+  cart_qty TEXT,
+  cart_price TEXT
 );

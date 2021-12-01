@@ -9,6 +9,8 @@ const client = require('twilio')(accountSid, authToken);
 module.exports = (db) => {
   // /menu routes
   router.get("/", (req, res) => {
+    //req.session.price = {apple: '$1', orange: '$5'};
+    //console.log(req.session.price);
     db.query(`SELECT * FROM meals WHERE restaurant_id = 1;`)
       .then(data => {
         let meals = { menu: data.rows };
@@ -31,13 +33,20 @@ module.exports = (db) => {
     /* everything below is for debugging */
     if(!req.session.cart) {
       req.session.cart = {};
+      req.session.price = {};
     }
     const data = req.body;
+    console.log(data);
     //if data key already exists
-    let name = Object.keys(data)[0];
+    let itemQty = data.itemQty;
+    let itemPrice = data.itemPrice;
+    let name = Object.keys(itemQty)[0];
     //name = name.pop();
-    let quantity = parseInt(data[name]);
+    //get qty and price
+    let quantity = parseInt(itemQty[name]);
+    let price = itemPrice[name];
     console.log('CART Before >>>>>>>>>>>>', req.session.cart);
+    console.log('CART Before >>>>>>>>>>>>', req.session.price);
     console.log('Name >>>>>>>>>>>>', name);
    // console.log('Quantity type', req.session.cart[name]);
 
@@ -45,18 +54,22 @@ module.exports = (db) => {
     //if item exists in cart and user press qty = 0, remove item from cart
     if (quantity === 0) {
       delete req.session.cart[name];
+      delete req.session.price[name];
       console.log('delete >>>>>>>>>>>>>>>');
       console.log(' CART >>>>>>>', req.session.cart);
+      console.log(' CART >>>>>>>', req.session.price);
       res.status(200);
       res.send();
       return;
     }
 
     req.session.cart[name] = quantity;
+    req.session.price[name] = price;
     res.status(200);
     res.send();
     console.log('Temp Data ---------> ', data);
     console.log('CART >>>>>>>>>>>>', req.session.cart);
+    console.log('CART >>>>>>>>>>>>', req.session.price);
 
     //if data is zero
 
@@ -153,19 +166,21 @@ module.exports = (db) => {
     const email = req.body.email;
     const mobile = req.body.mobile;
     //const total_price = req.body.totalPrice
-    // const cart_items = JSON.stringify(req.session.cart);
+    const cart_qty = JSON.stringify(req.session.cart);
+    const cart_price = JSON.stringify(req.session.price);
     // res.send('what is this?');
     //  when user confirms checkout add items to orders table and redirect to menu page
     //  db.query(`INSERT INTO orders (resturant_id, user_id, name, total_quantity, total_price) VALUES (1, 2, 'Grandma's Creamery', 10, 60) RETURNING*`)
-    console.log('Cart Items', cart_items);
-    console.log(typeof cart_items);
+    console.log('Cart Items', cart_qty);
+    console.log(typeof cart_qty);
     console.log('Before DB query');
-    db.query(`INSERT INTO orders (restaurant_id , user_id, name, total_quantity, total_price, pending, created_at, cart_items) VALUES (1, 2, 'name', 10, 60, true, NOW(), $1) RETURNING *;`,[cart_items])
+    db.query(`INSERT INTO orders (restaurant_id , user_id, name, total_quantity, total_price, pending, created_at, cart_qty, cart_price) VALUES (1, 2, 'name', 10, 60, true, NOW(), $1, $2) RETURNING *;`,[cart_qty, cart_price])
     .then(data => {
       console.log('After DB query');
       let orders = { checkout: data.rows };
       console.log('orders', orders)
       req.session.cart = null;
+      req.session.price = null;
       res.status(200);
       res.send();
     })
@@ -226,6 +241,7 @@ module.exports = (db) => {
    //get route for order history
    router.get("/history", (req, res) => {
      //query db for active and past orders
+     //console.log(req.session.price);
      db.query(`SELECT *
       FROM orders
       WHERE user_id = 2
@@ -237,7 +253,8 @@ module.exports = (db) => {
         //active orders
         let activeOrders = data.rows;
         console.log('Active Orders', activeOrders);
-        let activeItems = getItems(activeOrders);
+        let activeItemQty = getItems(activeOrders)[0];
+        let activeItemPrice = getItems(activeOrders)[1];
         //past orders
         let pastOrders;
         db.query(`SELECT *
@@ -250,11 +267,12 @@ module.exports = (db) => {
         .then(data => {
           pastOrders = data.rows;
           console.log('Past Orders', pastOrders);
-          let pastItems = getItems(pastOrders);
-          console.log(pastOrders);
+          let pastItemQty = getItems(pastOrders)[0];
+          let pastItemPrice = getItems(pastOrders)[1];
+          //console.log(pastOrders);
           /* console.log(activeOrders); */
           //send the query data into ejs for rendering
-          let orders = { pastOrders, pastItems, activeOrders, activeItems };
+          let orders = { pastOrders, pastItemQty, pastItemPrice, activeOrders, activeItemQty, activeItemPrice };
           res.status(200);
           res.render('history', orders);
         });
@@ -271,12 +289,15 @@ function getPastOrders(past) {
 };
 
 function getItems(orders) {
-  let items = [];
+  //items store both qty and price obj
+  let items = [[], []];
   for (const order of orders) {
     //parse JSON string
-    let item = JSON.parse(order.cart_items);
-    console.log('Cart Items  Object', item);
-    items.push(item);
+    let qty = JSON.parse(order.cart_qty);
+    let price = JSON.parse(order.cart_price);
+    console.log('Cart Items  Object', qty);
+    items[0].push(qty);
+    items[1].push(price);
   }
   return items;
 };
