@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <%- include('partials/_links') %>
+    <title>Grandma's Creamery - Checkout</title>
+</head>
+<h3>Checkout</h3>
+      <form method="POST" action="/checkout/order">
+        <div class="customer-form">
+          <label for="customer-fullname">Full Name</label>
+          <input type="text" name="customer-fullname" class="form-control" placeholder="Full Name">
+          <label for="customer-mobile">Mobile</label>
+          <input type="text" name="customer-mobile" class="form-control" placeholder="So we can contact you">
+          <label for="exampleInputEmail1">Email address</label>
+          <input type="email" name="email" class="form-control" placeholder="Email">
+</div>
+<body>
+  <%- include('partials/_header') %>
+    <% for (let order in listOfOrders) { %>
+      <table>
+        <tr>
+          <th>Name</th>
+          <th> Quantity:</th>
+          <th> Price: </th>
+        </tr>
+        <tr>
+          <td>
+            <%=order%>
+          </td>
+          <td>
+            <%=listOfOrders[order]%>
+
+          </td>
+          <td>
+            <%=listOfOrders[order] * (price / 100)%>
+          </td>
+        </tr>
+      </table>
+
+      <% } %>
+
+        <div>
+          <h3>Submit</h3>
+          <form method="POST" action="/menu/history" id="form">
+            <button type="submit" id="submit-button">place order</button>
+          </form>
+        </div>
+
+</body>
+
+</html>
