@@ -153,7 +153,7 @@ module.exports = (db) => {
     const email = req.body.email;
     const mobile = req.body.mobile;
     //const total_price = req.body.totalPrice
-    const cart_items = JSON.stringify(req.session.cart);
+    // const cart_items = JSON.stringify(req.session.cart);
     // res.send('what is this?');
     //  when user confirms checkout add items to orders table and redirect to menu page
     //  db.query(`INSERT INTO orders (resturant_id, user_id, name, total_quantity, total_price) VALUES (1, 2, 'Grandma's Creamery', 10, 60) RETURNING*`)
@@ -187,8 +187,41 @@ module.exports = (db) => {
     //save to order history
     //send sms to customer with order confirmation
     //redirect order history or menu
-    return res.redirect(`/menu`);
+    return res.redirect(`/menu/order`);
    });
+
+// order page that shows when a customer sucessfully placed an order
+   router.get("/order", (req, res) => {
+
+    const listOfOrders = req.session.cart;
+    console.log(listOfOrders);
+    //console.log('Order List ===>', orderList);
+    //console.log(typeof orderList);
+    if(listOfOrders) { //!Add check for user id
+      //loop through all cart
+      //query for price of food item
+      //add to cart obj
+      for (let order in listOfOrders) {
+
+        db.query(`SELECT price FROM meals WHERE name = $1`, [order])
+        .then((result) => {
+          let price = result.rows[0].price;
+          //let totalPrice = ( price / 100 ) * listOfOrders[order];
+          console.log('TOTAL PRICE', price);
+          let templateVars = {listOfOrders, price};
+          res.render("order", templateVars);
+        })
+        .catch((err) => {
+          console.log('###### Database Query Error ######');
+          console.log(err.message);
+        });
+
+      }
+    } else {
+      //redirect to main (or show relevent error)
+      return res.redirect("/history");
+    }
+  });
 
    //get route for order history
    router.get("/history", (req, res) => {
