@@ -126,7 +126,59 @@ client.messages
     return res.redirect(`/menu`);
    });
 
+   //get route for order history
+   router.get("/history", (req, res) => {
+     //query db for active and past orders
+     db.query(`SELECT *
+      FROM orders
+      WHERE user_id = 2
+      AND restaurant_id = 1
+      AND pending = true
+      ORDER BY created_at DESC;
+      `)
+      .then(data => {
+        //active orders
+        let activeOrders = data.rows;
+        let activeItems = getItems(activeOrders);
+        //past orders
+        let pastOrders;
+        db.query(`SELECT *
+        FROM orders
+        WHERE user_id = 2
+        AND restaurant_id = 1
+        AND pending = false
+        ORDER BY created_at DESC;
+        `)
+        .then(data => {
+          pastOrders = data.rows;
+          let pastItems = getItems(pastOrders);
+          console.log(pastOrders);
+          /* console.log(activeOrders); */
+          //send the query data into ejs for rendering
+          let orders = { pastOrders, pastItems, activeOrders, activeItems };
+          res.status(200);
+          res.render('history', orders);
+        });
+      })
+      .catch(err => {
+        res.status(500).json({ error: err.message });
+      });
+   });
    return router;
   }
+
+function getPastOrders(past) {
+  pastOrders = past;
+};
+
+function getItems(orders) {
+  let items = [];
+  for (const order of orders) {
+    //parse JSON string
+    let item = JSON.parse(order.cart_items);
+    items.push(item);
+  }
+  return items;
+};
 
 
