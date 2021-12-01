@@ -2,6 +2,9 @@
 const e = require('express');
 const express = require('express');
 const router  = express.Router();
+const accountSid = process.env.ACCOUNTSID;
+const authToken = process.env.AUTHTOKEN;
+const client = require('twilio')(accountSid, authToken);
 
 module.exports = (db) => {
   // /menu routes
@@ -82,7 +85,7 @@ module.exports = (db) => {
           //let totalPrice = ( price / 100 ) * listOfOrders[order];
           console.log('TOTAL PRICE', price);
           let templateVars = {listOfOrders, price};
-          res.render("checkout", templateVars);
+          return res.render("checkout", templateVars);
         })
         .catch((err) => {
           console.log('###### Database Query Error ######');
@@ -97,14 +100,19 @@ module.exports = (db) => {
   });
 
   router.post("/checkout", (req, res) => {
-    req.session.cart = null;
+    const name = req.body.fullname;
+    const email = req.body.email;
+    const mobile = req.body.mobile;
+    //const total_price = req.body.totalPrice
+    const cart_items = JSON.stringify(req.session.cart);
     // res.send('what is this?');
     //  when user confirms checkout add items to orders table and redirect to menu page
     //  db.query(`INSERT INTO orders (resturant_id, user_id, name, total_quantity, total_price) VALUES (1, 2, 'Grandma's Creamery', 10, 60) RETURNING*`)
-    db.query(`INSERT INTO orders (restaurant_id , user_id, name, total_quantity, total_price, created_at) VALUES (1, 2, 'name', 10, 60, NOW()) RETURNING*`)
+    db.query(`INSERT INTO orders (restaurant_id , user_id, name, total_quantity, total_price, created_at, cart_items) VALUES (1, 2, 'name', 10, 60, NOW(), ${cart_items}) RETURNING*`)
     .then(data => {
       let orders = { checkout: data.rows };
       console.log('orders', orders)
+      req.session.cart = null;
 
     })
     .catch(err => {
@@ -115,10 +123,12 @@ module.exports = (db) => {
         console.log(err.message);
     });
 //sms to owner of new order
-client.messages
-         .create({body: 'A customer placed an order, please check your dashboard ', from: '+12284324910', to: '+16476496220'})
-         .then(message => console.log(message.sid));
+// client.messages
+//          .create({body: 'A customer placed an order, please check your dashboard ', from: '+12284324910', to: '+16476496220'})
+//          .then(message => console.log(message.sid));
 
+
+    //sms to owner of new order
     //once we get a reply from owner
     //save to order history
     //send sms to customer with order confirmation
