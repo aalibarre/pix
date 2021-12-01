@@ -82,7 +82,7 @@ module.exports = (db) => {
           //let totalPrice = ( price / 100 ) * listOfOrders[order];
           console.log('TOTAL PRICE', price);
           let templateVars = {listOfOrders, price};
-          res.render("checkout", templateVars);
+          return res.render("checkout", templateVars);
         })
         .catch((err) => {
           console.log('###### Database Query Error ######');
