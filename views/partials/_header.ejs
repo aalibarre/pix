@@ -1,9 +1,8 @@
 <header>
-  <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light shadow">
+  <nav id="navbar-color" class="navbar fixed-top navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
-      <a class="navbar-brand" href="#">
-        <img src="/images/logo.png" alt="" width="30" height="24" class="d-inline-block align-text-top">
-        Grandma's Creamery
+      <a class="navbar-brand" href="/menu">
+        <img src="/images/icecream.png" alt="" width="80" height="80" class="d-inline-block align-text-top">
       </a>
       <div>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
@@ -14,7 +13,10 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">Menu</a>
+            <a class="nav-link active" aria-current="page" href="/menu"> <strong>Grandma's Creamery</strong></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="/menu">Menu</a>
           </li>
           <li class="nav-item">
             <a class="nav-link active" href="/menu/history">Order History</a>
@@ -27,7 +29,7 @@
           </li>
         </ul>
       </div>
-      <button class="cart-btn">Cart</button>
+      <a id="navbar-cart" class="btn btn-outline" href="/menu/checkout"><i class="fas fa-cart-arrow-down"></i></a>
     </div>
 
   </nav>
