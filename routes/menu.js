@@ -6,13 +6,19 @@ const router  = express.Router();
 module.exports = (db) => {
   // /menu routes
   router.get("/", (req, res) => {
+
     db.query(`SELECT * FROM meals WHERE restaurant_id = 1;`)
       .then(data => {
         let meals = { menu: data.rows };
         //send a rendered page with all menu items
         //console.log(meals);
         console.log('Get Route session', req.session.cart);
-        res.render('menu', meals);
+        let cartData = req.session.cart;
+        let menu = {
+          meals,
+          cartData
+        }
+        res.render('menu', menu);
       })
       .catch(err => {
         res

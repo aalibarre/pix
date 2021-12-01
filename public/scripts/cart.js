@@ -7,10 +7,6 @@
 //add quantity
 
 
-const createEmptyCart = () => {
-
-};
-
 const createCartElement = cartData => {
   let div = `<div class="cart-item">
               <span class="item-name">Cookie</span>
