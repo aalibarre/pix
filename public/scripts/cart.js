@@ -7,19 +7,6 @@
 //add quantity
 
 
-const createCartElement = cartData => {
-  let div = `<div class="cart-item">
-              <span class="item-name">Cookie</span>
-              <p class="price">$6.00</p>
-              <button class="remove-item-btn">X</button>
-            </div>`;
-  return div;
-};
-
-
-
-
-
 
 
 

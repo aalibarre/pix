@@ -70,33 +70,71 @@ module.exports = (db) => {
   router.get("/checkout", (req, res) => {
 
     const listOfOrders = req.session.cart;
-    console.log(listOfOrders);
+    console.log('List of Orders', listOfOrders);
     //console.log('Order List ===>', orderList);
     //console.log(typeof orderList);
+
+
     if(listOfOrders) { //!Add check for user id
       //loop through all cart
       //query for price of food item
       //add to cart obj
-      for (let order in listOfOrders) {
+      //Start promise
+      console.log('Outside Promise', listOfOrders);
+      const myPromise = new Promise((resolve, reject) => {
+        const priceArr = [];
+        console.log('Entered Promise', listOfOrders);
+        let queryCounter = 0;
+        let loopCounter = 0;
+        for (let i = 0; i < listOfOrders.length; i++ ) {
+          console.log('loop');
+          db.query(`SELECT price FROM meals WHERE name = $1`, [listOfOrders[i]])
+          .then((result) => {
+            let price = result.rows[0].price;
+            console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> Result', result);
+            console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> Result rows', result.rows);
+            console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> Result rows at index 0', result.rows[0]);
 
-        db.query(`SELECT price FROM meals WHERE name = $1`, [order])
-        .then((result) => {
-          let price = result.rows[0].price;
-          //let totalPrice = ( price / 100 ) * listOfOrders[order];
-          console.log('TOTAL PRICE', price);
-          let templateVars = {listOfOrders, price};
-          return res.render("checkout", templateVars);
-        })
-        .catch((err) => {
-          console.log('###### Database Query Error ######');
-          console.log(err.message);
-        });
+            priceArr.push(price);
+            console.log('TemplateVars', templateVars);
+            //res.status(200);
 
-      }
+            //return Promise.resolve('Hello World');
+            queryCounter++;
+            loopCounter = i;
+            console.log(queryCounter);
+            console.log(loopCounter);
+           })
+          // .then((data) => {
+
+          //   if(listOfOrders[i] === listOfOrders[listOfOrders.length - 1]) {
+          //     console.log('Price array', priceArr);
+          //     resolve(priceArr);
+          //   }
+          //})
+          .catch((err) => {
+            console.log('###### Database Query Error ######');
+            console.log(err.message);
+            reject(err);
+          });
+        }
+
+      });
+
+      myPromise
+      .then((data)=>{
+        let templateVars = {listOfOrders, data};
+        return res.render("checkout", templateVars);
+    })
+    .catch((err) => {
+      console.log(err.message);
+    });
     } else {
+      console.log('Redirect error');
       //redirect to main (or show relevent error)
       return res.redirect("/");
     }
+
   });
 
   router.post("/checkout", (req, res) => {
