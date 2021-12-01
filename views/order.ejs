@@ -1,28 +1,51 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <%- include('partials/_links') %>
+    <title>Grandma's Creamery - Checkout</title>
+</head>
 
 
 
 
+<body>
+  <%- include('partials/_header') %>
+<div class="order-box">
+
+<div class="order-confirm">
+<div> <strong>Order Successfully Placed</strong></div>
 <br>
-      <form method="POST" action="/menu/order">
+<div><i class="fa-regular fa-circle-check checkmark"></i></div>
+<br>
+<div>
+  Thank you for placing your order with us.
 </div>
 <div>
-  <header>
-    <div>
-      <h2>Order Has Succesfully Been Placed</h2>
-    </div>
-  </header>
-  <div>
-    <% for (let order in listOfOrders) { %>
+  Expect to recieve a text message for when to pick up your order.
+</div>
+<div>
+  We hope to see you again!
+</div>
 
-      <% } %>
-  </div>
-        <div>
+</div>
 
-          <form method="POST" action="menu/history" >
-            <button type="submit" id="submit-button">Order History</button>
-          </form>
-        </div>
+
+
+</div>
+
 
 </body>
+
+</html>
+
+
+
+
+
+
 
 
