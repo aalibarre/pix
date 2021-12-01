@@ -7,8 +7,6 @@
     height: 100%;
     background-color:  #FFFF;
     margin: 6px 0px;
-    border: red solid;
-    border-width: 5px;
   }
   .cart-header {
     display: flex;
@@ -54,38 +52,59 @@
     font-weight: normal;
     font-size: 1.4rem;
 
+
   }
   .cart-item {
-    display: flex;
+    display: block;
     flex-direction: row;
     justify-content: space-between;
     width: 100%;
-  }
-  .right-side-container {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    gap: 20%;
-  }
-  .remove-item-btn {
+    border-radius: 20px;
+    border: 1px solid #ba935a;
+    box-shadow: 10px 10px 0 1px #bc945a;
+    padding: 29px;
+    margin-bottom: 20px;
 
-    width: 5px;
-    height: 5px;
-    padding: 0.3em;
-    background-color: #aa0061;
-    border: #aa0061 2px solid;
-    border-radius: 30%;
-    border-style: solid;
+  }
+  .cart-item .cart-item-name {
+    margin: 0;
+    font-size: 24px;
+    font-weight: bold;
+    line-height: 1.17;
+    color: #461d58;
   }
 
+  .cart-item .item-order-info {
+    font-size: 18px;
+    text-align: right;
+    font-weight: bold;
+    line-height: 1.17;
+    color: #461d58;
+    margin: 0 0 5px;
 
-
+  }
   .cart-footer {
-    display: flex;
+    display: block;
     flex-direction: row;
     justify-content: center;
-    width: 100%;
+    width: 90%;
+    margin-top: 30px;
+    padding: 26px 30px;
+    border: 1px solid #d5b88a;
+    border-radius: 20px;
+
+  }
+  .cart-footer .cart-cost-container {
+    font-size: 18px;
+    font-weight: bold;
+    line-height: 1.17;
+    color: #461d58;
+    margin: 0 0 5px;
+  }
+  .cart-footer .cart-cost-container .cart-subtotal-container, .cart-tax-container, .cart-total-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
   }
   .cart-checkout-btn {
 
@@ -93,8 +112,8 @@
     font-weight: bold;
     padding: 8px;
     color: #FFF;
-    background-color: #aa0061;
-    border-color: #aa0061;
+    background-color: #461d58;
+    border-color: #461d58;
     border-radius: 3px;
     border-style: solid;
     border-width: 1px;
