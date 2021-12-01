@@ -68,6 +68,32 @@ header {
     font-size: 1.4rem;
 
   }
+  .cart-item {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+  }
+  .right-side-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20%;
+  }
+  .remove-item-btn {
+
+    width: 5px;
+    height: 5px;
+    padding: 0.3em;
+    background-color: #aa0061;
+    border: #aa0061 2px solid;
+    border-radius: 30%;
+    border-style: solid;
+  }
+
+
+
   .cart-footer {
     display: inherit;
     flex-direction: row;
@@ -89,4 +115,6 @@ header {
     border-width: 1px;
     box-shadow: none;
   }
+
+
 }

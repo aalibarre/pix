@@ -7,10 +7,9 @@
 //add quantity
 
 
-
 const createEmptyCart = () => {
 
-}
+};
 
 const createCartElement = cartData => {
   let div = `<div class="cart-item">
@@ -19,7 +18,7 @@ const createCartElement = cartData => {
               <button class="remove-item-btn">X</button>
             </div>`;
   return div;
-}
+};
 
 
 
