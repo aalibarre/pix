@@ -10,74 +10,75 @@
 
 <body>
   <%- include('partials/_header') %>
-  <h3>Active Orders</h3>
-  <% for (let i = 0; i < activeOrders.length; i++) { %>
-    <% let a = Object.keys(activeItems[i]); %>
-    <table>
-      <tr>
-        <th>Order Name</th>
-        <th>Order Date</th>
-        <th>LIst of Items</th>
-        <th>Total Quantity</th>
-        <th>Total Price</th>
-      </tr>
-    <tr>
-      <td>
-        <%= activeOrders[i].name %>
-      </td>
-      <td>
-        <%= activeOrders[i].created_at %>
-      </td>
-      <td>
-        <% for (const name in activeItems[i]) { %>
-          <%= name %>
-          <%= activeItems[i][name] %>
+    <div class="card">
+      <div class="card-header" id="headingTwo">
+        <h5 class="mb-0">
+          <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+            Active Orders
+          </button>
+        </h5>
+      </div>
+      <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+        <% for (let i = 0; i < activeOrders.length; i++) { %>
+          <% let a = Object.keys(activeItems[i]); %>
+          <div class="card-body">
+            <header>
+              <h3>Order Name: <%= activeOrders[i].name %> </h3>
+              <h3>Order Date: <%= activeOrders[i].created_at %> </h3>
+            </header>
+            <section>
+              <ul>
+                <% for (const name in activeItems[i]) { %>
+                  <li><%= name %> x<%= activeItems[i][name] %> for price</li>
+                <% } %>
+              </ul>
+            </section>
+            <footer>
+              <section>
+                <h4>total quanity: <%= activeOrders[i].total_quantity %> </h4>
+                <h4>total price: <%= activeOrders[i].total_price %> </h4>
+              </section>
+            </footer>
+          </div>
         <% } %>
-      </td>
-      <td>
-        <%= activeOrders[i].total_quantity %>
-      </td>
-      <td>
-        <%= activeOrders[i].total_price %>
-      </td>
-    </tr>
-</table>
-  <% } %>
-  <h3>Past Orders</h3>
-    <% for (let i = 0; i < pastOrders.length; i++) { %>
-      <% let a = Object.keys(pastItems[i]); %>
-      <table>
-        <tr>
-          <th>Order Name</th>
-          <th>Order Date</th>
-          <th>LIst of Items</th>
-          <th>Total Quantity</th>
-          <th>Total Price</th>
-        </tr>
-      <tr>
-        <td>
-          <%= pastOrders[i].name %>
-        </td>
-        <td>
-          <%= pastOrders[i].created_at %>
-        </td>
-        <td>
-          <% for (const name in pastItems[i]) { %>
-            <%= name %>
-            <%= pastItems[i][name] %>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header" id="headingThree">
+        <h5 class="mb-0">
+          <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+            Past Orders
+          </button>
+        </h5>
+      </div>
+      <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+        <% for (let i = 0; i < pastOrders.length; i++) { %>
+          <% let a = Object.keys(pastItems[i]); %>
+          <div class="card-body">
+            <header>
+              <h3>Order Name: <%= pastOrders[i].name %> </h3>
+              <h3>Order Date: <%= pastOrders[i].created_at %> </h3>
+            </header>
+            <section>
+              <ul>
+                <% for (const name in pastItems[i]) { %>
+                  <li><%= name %> x<%= pastItems[i][name] %> for price</li>
+                <% } %>
+              </ul>
+              </section>
+              <footer>
+                <section>
+                  <h4>total quanity: <%= pastOrders[i].total_quantity %> </h4>
+                  <h4>total price: <%= pastOrders[i].total_price %> </h4>
+                </section>
+              </footer>
+            </div>
           <% } %>
-        </td>
-        <td>
-          <%= pastOrders[i].total_quantity %>
-        </td>
-        <td>
-          <%= pastOrders[i].total_price %>
-        </td>
-      </tr>
-  </table>
-    <% } %>
+        </div>
+      </div>
+    </div>
     <form method="GET" action="/menu/">
       <button type="submit">Back to menu</button>
     </form>
-</body>
+  </body>
 </html>
