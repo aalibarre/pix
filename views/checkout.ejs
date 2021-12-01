@@ -9,6 +9,7 @@
     <title>Grandma's Creamery - Checkout</title>
 </head>
 <h3>Checkout</h3>
+
 <form method="POST" action="/menu/checkout">
   <div class="customer-form">
     <label for="customer-fullname">Full Name</label>
@@ -18,43 +19,44 @@
     <label for="exampleInputEmail1">Email address</label>
     <input type="email" name="email" class="form-control" placeholder="Email">
   </div>
+</form>
 
-  <body>
-    <%- include('partials/_header') %>
-      <div class="cart-container">
-        <header class="cart-header">
-          <div class="cart-title">
-            <h2>My Order</h2>
-          </div>
-          <button class="exit"> X </button>
-        </header>
-        <div class="cart-content">
-          <% for (let order in listOfOrders) { %>
-            <div class="cart-item">
-              <h1 class="item-name">
-                <%=order%>
-              </h1>
-              <div class="right-side-container">
-                <p class="quantity">
-                  <%=listOfOrders[order]%>
-                </p>
-                <p class="price">
-                  <%=listOfOrders[order] * (price[order] / 100)%>
-                </p>
-                <button class="remove-item-btn"></button>
-              </div>
-
-            </div>
-            <% } %>
+<body>
+  <%- include('partials/_header') %>
+    <div class="cart-container">
+      <header class="cart-header">
+        <div class="cart-title">
+          <h2>My Order</h2>
         </div>
-        <footer class="cart-footer">
-          <form method="POST" action="/menu/checkout" id="form">
-            <button type="submit" id="submit-button" class="cart-checkout-btn">Place Order</button>
-          </form>
-        </footer>
+        <button class="exit"> X </button>
+      </header>
+      <div class="cart-content">
+        <% for (let order in listOfOrders) { %>
+          <div class="cart-item">
+            <h1 class="item-name">
+              <%=order%>
+            </h1>
+            <div class="right-side-container">
+              <p class="quantity">
+                <%=listOfOrders[order]%>
+              </p>
+              <p class="price">
+                <%=listOfOrders[order] * (price[order] / 100)%>
+              </p>
+              <button class="remove-item-btn"></button>
+            </div>
+
+          </div>
+          <% } %>
       </div>
+      <footer class="cart-footer">
+        <form method="POST" action="/menu/checkout">
+          <button type="submit" class="cart-checkout-btn">Place Order</button>
+        </form>
+      </footer>
+    </div>
 
 
-  </body>
+</body>
 
 </html>

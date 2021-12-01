@@ -157,12 +157,17 @@ module.exports = (db) => {
     // res.send('what is this?');
     //  when user confirms checkout add items to orders table and redirect to menu page
     //  db.query(`INSERT INTO orders (resturant_id, user_id, name, total_quantity, total_price) VALUES (1, 2, 'Grandma's Creamery', 10, 60) RETURNING*`)
-    db.query(`INSERT INTO orders (restaurant_id , user_id, name, total_quantity, total_price, created_at, cart_items) VALUES (1, 2, 'name', 10, 60, NOW(), ${cart_items}) RETURNING*`)
+    console.log('Cart Items', cart_items);
+    console.log(typeof cart_items);
+    console.log('Before DB query');
+    db.query(`INSERT INTO orders (restaurant_id , user_id, name, total_quantity, total_price, pending, created_at, cart_items) VALUES (1, 2, 'name', 10, 60, true, NOW(), $1) RETURNING *;`,[cart_items])
     .then(data => {
+      console.log('After DB query');
       let orders = { checkout: data.rows };
       console.log('orders', orders)
       req.session.cart = null;
-
+      res.status(200);
+      res.send();
     })
     .catch(err => {
       res
@@ -198,6 +203,7 @@ module.exports = (db) => {
       .then(data => {
         //active orders
         let activeOrders = data.rows;
+        console.log('Active Orders', activeOrders);
         let activeItems = getItems(activeOrders);
         //past orders
         let pastOrders;
@@ -210,6 +216,7 @@ module.exports = (db) => {
         `)
         .then(data => {
           pastOrders = data.rows;
+          console.log('Past Orders', pastOrders);
           let pastItems = getItems(pastOrders);
           console.log(pastOrders);
           /* console.log(activeOrders); */
@@ -235,6 +242,7 @@ function getItems(orders) {
   for (const order of orders) {
     //parse JSON string
     let item = JSON.parse(order.cart_items);
+    console.log('Cart Items  Object', item);
     items.push(item);
   }
   return items;
