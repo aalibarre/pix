@@ -39,7 +39,7 @@ module.exports = (db) => {
     let quantity = parseInt(data[name]);
     console.log('CART Before >>>>>>>>>>>>', req.session.cart);
     console.log('Name >>>>>>>>>>>>', name);
-    console.log('Quantity type', req.session.cart[name]);
+   // console.log('Quantity type', req.session.cart[name]);
 
     //if item doesnt exist in cart and user press qty = 0, then ignore
     //if item exists in cart and user press qty = 0, remove item from cart
@@ -71,6 +71,8 @@ module.exports = (db) => {
 
     const listOfOrders = req.session.cart;
     console.log('List of Orders', listOfOrders);
+    console.log('Length of listOfOrders', Object.keys(listOfOrders).length);
+
     //console.log('Order List ===>', orderList);
     //console.log(typeof orderList);
 
@@ -80,50 +82,59 @@ module.exports = (db) => {
       //query for price of food item
       //add to cart obj
       //Start promise
+      let priceObj = {};
+
       console.log('Outside Promise', listOfOrders);
       const myPromise = new Promise((resolve, reject) => {
-        const priceArr = [];
         console.log('Entered Promise', listOfOrders);
         let queryCounter = 0;
         let loopCounter = 0;
-        for (let i = 0; i < listOfOrders.length; i++ ) {
+        // for(let i = 0; i <= 10; i ++) {
+        //   console.log(i);
+        // }
+        let index = 0;
+        let listLength = Object.keys(listOfOrders).length;
+         for (let order in listOfOrders ) {
           console.log('loop');
-          db.query(`SELECT price FROM meals WHERE name = $1`, [listOfOrders[i]])
+          db.query(`SELECT price FROM meals WHERE name = $1`, [order])
           .then((result) => {
             let price = result.rows[0].price;
-            console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> Result', result);
-            console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> Result rows', result.rows);
-            console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> Result rows at index 0', result.rows[0]);
+            //console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> Result', result);
+            //console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> Result rows', result.rows);
+            //console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> Result rows at index 0', result.rows[0]);
 
-            priceArr.push(price);
-            console.log('TemplateVars', templateVars);
+            priceObj[order] = price;
+            //priceArr.push(price);
+            //console.log('TemplateVars', templateVars);
             //res.status(200);
+            //resolve(priceArr);
+            //queryCounter++;
+            //loopCounter = index;
+            index++;
+            //console.log('Query Counter', queryCounter);
+            //console.log('Loop Counter', loopCounter);
+            console.log('Index', index);
+            console.log('List Length', listLength);
+            if(index === listLength) {
+              return resolve(priceObj);
+            }
 
-            //return Promise.resolve('Hello World');
-            queryCounter++;
-            loopCounter = i;
-            console.log(queryCounter);
-            console.log(loopCounter);
            })
-          // .then((data) => {
-
-          //   if(listOfOrders[i] === listOfOrders[listOfOrders.length - 1]) {
-          //     console.log('Price array', priceArr);
-          //     resolve(priceArr);
-          //   }
-          //})
           .catch((err) => {
             console.log('###### Database Query Error ######');
             console.log(err.message);
             reject(err);
           });
-        }
-
+         }
+        //reject('ErroRRRR');
       });
 
       myPromise
-      .then((data)=>{
-        let templateVars = {listOfOrders, data};
+      .then((price)=>{
+
+        let templateVars = {listOfOrders, price};
+        console.log('TemplateVars', templateVars);
+        //console.log('Price Array', price);
         return res.render("checkout", templateVars);
     })
     .catch((err) => {
