@@ -8,7 +8,16 @@
   <%- include('partials/_links') %>
     <title>Grandma's Creamery - Checkout</title>
 </head>
-
+<h3>Checkout</h3>
+      <form method="POST" action="/menu/checkout">
+        <div class="customer-form">
+          <label for="customer-fullname">Full Name</label>
+          <input type="text" name="customer-fullname" class="form-control" placeholder="Full Name">
+          <label for="customer-mobile">Mobile</label>
+          <input type="text" name="customer-mobile" class="form-control" placeholder="So we can contact you">
+          <label for="exampleInputEmail1">Email address</label>
+          <input type="email" name="email" class="form-control" placeholder="Email">
+</div>
 <body>
   <%- include('partials/_header') %>
     <% for (let order in listOfOrders) { %>
