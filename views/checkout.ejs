@@ -30,7 +30,7 @@
                 <h3>
                   <%=listOfOrders[order]%>
                     <span>•</span>
-                    $<%=listOfOrders[order] * (price[order] / 100)%>
+                    $<%=(listOfOrders[order] * (price[order] / 100)).toFixed(2)%>
                 </h3>
               </div>
 
@@ -56,19 +56,19 @@
             <div class="cart-subtotal-container">
               <p class="cart-subtotal-title">Sub Total</p>
               <p class="cart-subtotal-cost">
-                $<%=subTotal %>
+                $<%=(subTotal).toFixed(2) %>
               </p>
             </div>
             <div class="cart-tax-container">
               <p class="cart-tax-title">Tax</p>
               <p class="cart-tax-cost">
-                $<%=subTotal / 10 %>
+                $<%=(subTotal / 10).toFixed(2) %>
               </p>
             </div>
             <div class="cart-total-container">
               <p class="cart-total-title">Total</p>
               <p class="cart-total-cost">
-                $<%=subTotal + (subTotal / 10)%>
+                $<%=(subTotal + (subTotal / 10)).toFixed(2)%>
               </p>
             </div>
           </div>
