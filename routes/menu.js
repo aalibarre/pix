@@ -204,11 +204,11 @@ module.exports = (db) => {
     //save to order history
     //send sms to customer with order confirmation
     //redirect order history or menu
-    return res.redirect(`/menu/order`);
+    return res.redirect(`/menu/ordersuccess`);
    });
 
 // order page that shows when a customer sucessfully placed an order
-   router.get("/order", (req, res) => {
+   router.get("/ordersuccess", (req, res) => {
 
     const listOfOrders = req.session.cart;
     req.session.cart = null;
@@ -228,7 +228,7 @@ module.exports = (db) => {
           //let totalPrice = ( price / 100 ) * listOfOrders[order];
           console.log('TOTAL PRICE', price);
           let templateVars = {listOfOrders, price};
-          res.render("order", templateVars);
+          res.render("ordersuccess", templateVars);
         })
         .catch((err) => {
           console.log('###### Database Query Error ######');

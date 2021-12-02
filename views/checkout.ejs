@@ -10,51 +10,75 @@
 </head>
 <h3>Checkout</h3>
 
-<form method="POST" action="/menu/checkout">
-  <div class="customer-form">
-    <label for="customer-fullname">Full Name</label>
-    <input type="text" name="customer-fullname" class="form-control" placeholder="Full Name">
-    <label for="customer-mobile">Mobile</label>
-    <input type="text" name="customer-mobile" class="form-control" placeholder="So we can contact you">
-    <label for="exampleInputEmail1">Email address</label>
-    <input type="email" name="email" class="form-control" placeholder="Email">
-  </div>
-</form>
-
 <body>
   <%- include('partials/_header') %>
-    <div class="cart-container">
-      <header class="cart-header">
-        <div class="cart-title">
-          <h2>My Order</h2>
-        </div>
-        <button class="exit"> X </button>
-      </header>
-      <div class="cart-content">
-        <% for (let order in listOfOrders) { %>
-          <div class="cart-item">
-            <h1 class="item-name">
-              <%=order%>
-            </h1>
-            <div class="right-side-container">
-              <p class="quantity">
-                <%=listOfOrders[order]%>
-              </p>
-              <p class="price">
-                <%=listOfOrders[order] * (price[order] / 100)%>
-              </p>
-              <button class="remove-item-btn"></button>
-            </div>
-
+    <% let subTotal=0;%>
+      <div class="cart-container">
+        <header class="cart-header">
+          <div class="cart-title">
+            <h2>Pick Up Address</h2>
+            <p>Total quantity</p>
           </div>
-          <% } %>
+        </header>
+        <div class="cart-content">
+          <% for (let order in listOfOrders) { %>
+            <div class="cart-item">
+              <p class="cart-item-name">
+                <%=order%>
+              </p>
+              <div class="item-order-info">
+                <h3>
+                  <%=listOfOrders[order]%>
+                    <span>•</span>
+                    $<%=(listOfOrders[order] * (price[order] / 100)).toFixed(2)%>
+                </h3>
+              </div>
+
+            </div>
+            <% subTotal=subTotal + (listOfOrders[order] * (price[order] / 100))%>
+              <% } %>
+        </div>
+
+        <footer class="cart-footer">
+          <form method="POST" action="/menu/checkout">
+            <div class="customer-form">
+              <label for="customer-fullname">Full Name</label>
+              <input type="text" name="customer-fullname" class="form-control" placeholder="Full Name">
+              <label for="customer-mobile">Mobile</label>
+              <input type="text" name="customer-mobile" class="form-control" placeholder="So we can contact you">
+              <label for="exampleInputEmail1">Email address</label>
+              <input type="email" name="email" class="form-control" placeholder="Email">
+            </div>
+          </form>
+
+
+          <div class="cart-cost-container">
+            <div class="cart-subtotal-container">
+              <p class="cart-subtotal-title">Sub Total</p>
+              <p class="cart-subtotal-cost">
+                $<%=(subTotal).toFixed(2) %>
+              </p>
+            </div>
+            <div class="cart-tax-container">
+              <p class="cart-tax-title">Tax</p>
+              <p class="cart-tax-cost">
+                $<%=(subTotal / 10).toFixed(2) %>
+              </p>
+            </div>
+            <div class="cart-total-container">
+              <p class="cart-total-title">Total</p>
+              <p class="cart-total-cost">
+                $<%=(subTotal + (subTotal / 10)).toFixed(2)%>
+              </p>
+            </div>
+          </div>
+
+          <form method="POST" action="/menu/checkout">
+            <button type="submit" class="cart-checkout-btn">Place Order</button>
+          </form>
+
+        </footer>
       </div>
-      <footer class="cart-footer">
-        <form method="POST" action="/menu/checkout">
-          <button type="submit" class="cart-checkout-btn">Place Order</button>
-        </form>
-      </footer>
-    </div>
 
 
 </body>
