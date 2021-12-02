@@ -16,7 +16,7 @@
   <%- include('partials/_header') %>
 <div>
 <div class="order-name">
-  <h2>IN PROGRESS ORDERS</h2>
+  <h2>COMPLETED ORDERS</h2>
 </div>
 <div class="order-list">
   <% for(let item of order) { %>
@@ -27,12 +27,15 @@
   Order Placed At (<%= item.created_at.toDateString() %>)
 </p>
 <p>
+  Order Complete = <%= item.pending%>
+</p>
+<p>
   <%= item.username%>
 </p>
 <p>
   <%= item.phone_number%>
 </p>
-<button>Send SMS</button>
+<button>Complete</button>
 <% } %>
 </div>
 
