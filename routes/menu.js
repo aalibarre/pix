@@ -82,6 +82,10 @@ module.exports = (db) => {
   // /menu/checkout routes
   router.get("/checkout", (req, res) => {
 
+    if(!req.session.cart) {
+      req.session.cart = {};
+      req.session.price = {};
+    }
     const listOfOrders = req.session.cart;
     console.log('List of Orders', listOfOrders);
     console.log('Length of listOfOrders', Object.keys(listOfOrders).length);
@@ -178,9 +182,7 @@ module.exports = (db) => {
     .then(data => {
       console.log('After DB query');
       let orders = { checkout: data.rows };
-      console.log('orders', orders)
-      req.session.cart = null;
-      req.session.price = null;
+      console.log('orders', orders);
       res.status(200);
       res.send();
     })
@@ -209,6 +211,8 @@ module.exports = (db) => {
    router.get("/order", (req, res) => {
 
     const listOfOrders = req.session.cart;
+    req.session.cart = null;
+    req.session.price = null;
     console.log(listOfOrders);
     //console.log('Order List ===>', orderList);
     //console.log(typeof orderList);
