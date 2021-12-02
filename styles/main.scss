@@ -48,6 +48,16 @@ padding:3em;
 .checkmark{
 font-size: 80px;
 }
+
+.order-name {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #461d58;
+color:white;
+padding: 1em;
+
+}
 /*article h2 {
   text-align: center;
 }
