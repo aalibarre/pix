@@ -20,16 +20,16 @@
       </div>
       <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
         <% for (let i = 0; i < activeOrders.length; i++) { %>
-          <% let a = Object.keys(activeItems[i]); %>
+          <% let a = Object.keys(activeItemQty[i]); %>
           <div class="card-body">
             <header>
               <h3>Order Name: <%= activeOrders[i].name %> </h3>
-              <h3>Order Date: <%= activeOrders[i].created_at %> </h3>
+              <h3>Order Date: <%= activeOrders[i].created_at.toDateString() %> </h3>
             </header>
             <section>
               <ul>
-                <% for (const name in activeItems[i]) { %>
-                  <li><%= name %> x<%= activeItems[i][name] %> for price</li>
+                <% for (const name in activeItemQty[i]) { %>
+                  <li><%= name %> x<%= activeItemQty[i][name] %> for <%= activeItemPrice[i][name] %> </li>
                 <% } %>
               </ul>
             </section>
@@ -53,16 +53,16 @@
       </div>
       <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
         <% for (let i = 0; i < pastOrders.length; i++) { %>
-          <% let a = Object.keys(pastItems[i]); %>
+          <% let a = Object.keys(pastItemQty[i]); %>
           <div class="card-body">
             <header>
               <h3>Order Name: <%= pastOrders[i].name %> </h3>
-              <h3>Order Date: <%= pastOrders[i].created_at %> </h3>
+              <h3>Order Date: <%= pastOrders[i].created_at.toDateString() %> </h3>
             </header>
             <section>
               <ul>
-                <% for (const name in pastItems[i]) { %>
-                  <li><%= name %> x<%= pastItems[i][name] %> for price</li>
+                <% for (const name in pastItemQty[i]) { %>
+                  <li><%= name %> x<%= pastItemQty[i][name] %> for <%= pastItemPrice[i][name] %> </li>
                 <% } %>
               </ul>
               </section>

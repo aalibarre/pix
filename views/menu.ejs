@@ -12,19 +12,21 @@
 <body class="container">
   <%- include('partials/_header') %>
     <main class="container col">
-      <h1>welcome! Please take a look at our delicious menu.</h1>
       <% for (let item of menu) { %>
         <article class="col gy-5">
           <h2>
             <%= item.name %>
           </h2>
           <figure class="figure">
-            <img src=<%=item.photo_url %> class="figure-img img-fluid-rounded" alt="picture of store item">
+            <img class="menu-pics" src=<%=item.photo_url %> class="figure-img img-fluid-rounded" alt="picture of store item">
           </figure>
           <div class='description'>
             <p>
               <%= item.description %>
             </p>
+            <h3>
+              $<%= item.price / 100 %>
+            </h3>
             <div>
               <div>
                 <button class='button-minus'>-</button>
