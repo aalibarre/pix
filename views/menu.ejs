@@ -6,11 +6,14 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <%- include('partials/_links') %>
+  <script type="text/javascript" src="/scripts/timer_check.js"></script>
+
     <title>Grandma's Creamery - Menu</title>
 </head>
 
 <body class="container">
   <%- include('partials/_header') %>
+<div id="timer" class="timer"></div>
     <main class="container col">
       <% for (let item of menu) { %>
         <article class="col gy-5">
