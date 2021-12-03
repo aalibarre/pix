@@ -301,7 +301,71 @@ module.exports = (db) => {
           console.log(e.message);
       });
   });
+  router.post("/order", (req, res) => {
+    db.query(`SELECT orders.id, orders.pending, orders.created_at, users.username, users.phone_number
+    FROM orders
+    JOIN users ON users.id = user_id
+    WHERE orders.pending = false
+    ORDER BY orders.created_at
+    `)
+  .then(data => {
+  let orders = { order: data.rows };
+  //send a rendered page with all menu items
+  console.log(orders);
+  res.render('order', orders);
+  })
+  .catch(err => {
+  res
+  .status(500)
+  .json({ error: err.message });
+  console.log('######Error######');
+  console.log(e.message);
+  });
+    client.messages
+           .create({body: 'Your order is in progress, estimated time of completion is 20 minutes.', from: '+12284324910', to: '+16476496220'})
+           .then(message => console.log(message.sid));
 
+
+      //sms to owner of new order
+      //once we get a reply from owner
+      //save to order history
+      //send sms to customer with order confirmation
+      //redirect order history or menu
+      return res.redirect(`/menu/admincomplete`);
+     });
+
+  router.post("/menu/admincomplete", (req, res) => {
+    db.query(`SELECT orders.id, orders.pending, orders.created_at, users.username, users.phone_number
+            FROM orders
+            JOIN users ON users.id = user_id
+            WHERE orders.pending = true
+            ORDER BY orders.created_at
+            `)
+      .then(data => {
+        let orders = { order: data.rows };
+        //send a rendered page with all menu items
+        console.log(orders);
+        res.render('admincomplete', orders);
+      })
+      .catch(err => {
+        res
+          .status(500)
+          .json({ error: err.message });
+          console.log('######Error######');
+          console.log(e.message);
+      });
+    client.messages
+           .create({body: 'Your order is compelte. Thank you for shopping with us', from: '+12284324910', to: '+16476496220'})
+           .then(message => console.log(message.sid));
+
+
+      //sms to owner of new order
+      //once we get a reply from owner
+      //save to order history
+      //send sms to customer with order confirmation
+      //redirect order history or menu
+      return res.redirect(`/`);
+     });
    //get route for order history
    router.get("/history", (req, res) => {
      //query db for active and past orders
@@ -373,4 +437,26 @@ function getItems(orders) {
   return items;
 };
 
+function generateRandomString() {
+  let result = '';
+  for (let i = 0; i < 6; i++) {
+    //get a random # from 1 - 3
+    let selectChoice = Math.floor(Math.random() * 3) + 1;
+    let char = '';
+    if (selectChoice === 1 || selectChoice === 2) {
+      //select a random uppercase or lowercase alphabet
+      min = Math.ceil(65);
+      max = Math.floor(90);
+      let rand = Math.floor(Math.random() * (max - min + 1) + min); //The maximum is inclusive and the minimum is inclusive
+      char = selectChoice === 1 ? String.fromCharCode(rand) : String.fromCharCode(rand).toLowerCase();
+    }
 
+    //select a random # number
+    if (selectChoice === 3) {
+      let rand = Math.floor(Math.random() * 9) + 1;
+      char = rand.toString();
+    }
+    result += char;
+  }
+  return result;
+};
