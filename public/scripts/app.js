@@ -34,10 +34,17 @@ $(document).ready(function() {
   });
 
   $('.add-cart-btn').on('click', function(e) {
-    //get the name, qty, price of item
-    const name = $(this).closest('article').find('h2').text().trim();
-    const qty = $(this).closest('div').find('span').text();
-    const price = $(this).closest('article').find('h3').text().trim();
+     //get the name, qty, price of item
+    // const name = $(this).closest('article').find('h2').text().trim();
+    // const qty = $(this).closest('div').find('span').text();
+    // const price = $(this).closest('article').find('h3').text().trim();
+
+    const name = e.target.parentElement.parentElement.parentElement.firstElementChild.children[1].innerText;
+    const qty = e.target.parentElement.parentElement.firstElementChild.children[1].innerText;
+    const price = e.target.parentElement.parentElement.parentElement.firstElementChild.children[0].innerText;
+
+
+
     //package into an object
     let itemQty = {};
     itemQty[name] = qty;

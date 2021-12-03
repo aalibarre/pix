@@ -6,46 +6,52 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <%- include('partials/_links') %>
-  <script type="text/javascript" src="/scripts/timer_check.js"></script>
+    <script type="text/javascript" src="/scripts/timer_check.js"></script>
 
     <title>Grandma's Creamery - Menu</title>
 </head>
 
 <body class="container">
   <%- include('partials/_header') %>
-<div id="timer" class="timer"></div>
-    <main class="container col">
+    <div id="timer" class="timer"></div>
+
+    <div class="meal-container">
       <% for (let item of menu) { %>
-        <article class="col gy-5">
-          <h2>
-            <%= item.name %>
-          </h2>
-          <figure class="figure">
-            <img class="menu-pics" src=<%=item.photo_url %> class="figure-img img-fluid-rounded" alt="picture of store item">
-          </figure>
-          <div class='description'>
-            <p>
-              <%= item.description %>
-            </p>
-            <h3>
-              $<%= item.price / 100 %>
-            </h3>
-            <div>
-              <div>
-                <button class='button-minus'>-</button>
-                <span>0</span>
-                <button class='button-plus'>+</button>
-              </div>
-              <button type="submit" class="add-cart-btn">Add to Cart</button>
-            </div>
+
+        <article class="meal-item">
+          <div class="meal-image">
+            <img class="menu-pics" src=<%=item.photo_url %> class="figure-img img-fluid-rounded" alt="picture of store
+            item">
           </div>
+          <div class="meal-info-container">
+            <div class="meal-text">
+              <h3>
+                $<%= item.price / 100 %>
+              </h3>
+              <h3>
+                <%= item.name %>
+              </h3>
+              <p>
+                <%= item.description %>
+              </p>
+            </div>
+            <div class="meal-cart-container">
+              <div class="meal-quantity">
+                <button class="button-minus">-</button>
+                <span>0</span>
+                <button class="button-plus">+</button>
+              </div>
+              <div>
+                <button type="submit" class="add-cart-btn">Add to Cart</button>
+              </div>
+            </div>
           </div>
         </article>
         <% } %>
           <form action="/menu/checkout" method="GET">
             <button type="submit">Checkout</button>
           </form>
-    </main>
+    </div>
 </body>
 
 </html>
