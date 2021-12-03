@@ -26,7 +26,7 @@
           <% let a = Object.keys(activeItemQty[i]); %>
           <div class="card-body">
             <header>
-              <h3>Order Name: <%= activeOrders[i].name %> </h3>
+              <h3>Order: #<%= activeOrders[i].id %> </h3>
               <h3>Order Date: <%= activeOrders[i].created_at.toDateString() %> </h3>
             </header>
             <section>
@@ -59,7 +59,7 @@
           <% let a = Object.keys(pastItemQty[i]); %>
           <div class="card-body">
             <header>
-              <h3>Order Name: <%= pastOrders[i].name %> </h3>
+              <h3>Order: #<%= pastOrders[i].id %> </h3>
               <h3>Order Date: <%= pastOrders[i].created_at.toDateString() %> </h3>
             </header>
             <section>

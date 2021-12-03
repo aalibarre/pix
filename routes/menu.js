@@ -373,4 +373,26 @@ function getItems(orders) {
   return items;
 };
 
+function generateRandomString() {
+  let result = '';
+  for (let i = 0; i < 6; i++) {
+    //get a random # from 1 - 3
+    let selectChoice = Math.floor(Math.random() * 3) + 1;
+    let char = '';
+    if (selectChoice === 1 || selectChoice === 2) {
+      //select a random uppercase or lowercase alphabet
+      min = Math.ceil(65);
+      max = Math.floor(90);
+      let rand = Math.floor(Math.random() * (max - min + 1) + min); //The maximum is inclusive and the minimum is inclusive
+      char = selectChoice === 1 ? String.fromCharCode(rand) : String.fromCharCode(rand).toLowerCase();
+    }
 
+    //select a random # number
+    if (selectChoice === 3) {
+      let rand = Math.floor(Math.random() * 9) + 1;
+      char = rand.toString();
+    }
+    result += char;
+  }
+  return result;
+};

@@ -46,3 +46,17 @@
 .btn-link:hover {
   color: #bc945a;
 }
+
+@media (min-width: 650px) {
+  .card-body {
+    header {
+      flex-direction: row;
+      justify-content: space-between;
+    }
+
+    footer {
+      flex-direction: row;
+      justify-content: flex-end;
+    }
+  }
+}
