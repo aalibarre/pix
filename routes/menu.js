@@ -99,6 +99,7 @@ module.exports = (db) => {
       //query for price of food item
       //add to cart obj
       //Start promise
+
       let priceObj = {};
 
       console.log('Outside Promise', listOfOrders);
@@ -169,16 +170,26 @@ module.exports = (db) => {
     const name = req.body.fullname;
     const email = req.body.email;
     const mobile = req.body.mobile;
-    //const total_price = req.body.totalPrice
+
+    console.log('REQUEST BODY', req.body);
+    let total_price = 0;
+    let total_quantity = 0;
     const cart_qty = JSON.stringify(req.session.cart);
     const cart_price = JSON.stringify(req.session.price);
+
+    for(let item in req.session.cart) {
+      total_quantity += req.session.cart[item];
+    }
+    for(let item in req.session.cart) {
+      total_price += parseInt(req.session.price[item].slice(1));
+    }
     // res.send('what is this?');
     //  when user confirms checkout add items to orders table and redirect to menu page
     //  db.query(`INSERT INTO orders (resturant_id, user_id, name, total_quantity, total_price) VALUES (1, 2, 'Grandma's Creamery', 10, 60) RETURNING*`)
     console.log('Cart Items', cart_qty);
     console.log(typeof cart_qty);
     console.log('Before DB query');
-    db.query(`INSERT INTO orders (restaurant_id , user_id, name, total_quantity, total_price, pending, created_at, cart_qty, cart_price) VALUES (1, 2, 'name', 10, 60, true, NOW(), $1, $2) RETURNING *;`,[cart_qty, cart_price])
+    db.query(`INSERT INTO orders (restaurant_id , user_id, name, total_quantity, total_price, pending, created_at, cart_qty, cart_price) VALUES (1, 2, 'name', $1, $2, true, NOW(), $3, $4) RETURNING *;`,[total_quantity, total_price, cart_qty, cart_price])
     .then(data => {
       console.log('After DB query');
       let orders = { checkout: data.rows };
@@ -206,6 +217,11 @@ module.exports = (db) => {
     //redirect order history or menu
     return res.redirect(`/menu/ordersuccess`);
    });
+
+
+
+
+
 
 // order page that shows when a customer sucessfully placed an order
    router.get("/ordersuccess", (req, res) => {

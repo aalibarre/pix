@@ -62,5 +62,22 @@ $(document).ready(function() {
   $('.cart-btn').on('click', function (e) {
     console.log('Carttttttttttt');
   })
+
+
+
+
+  $('.cart-item-remove').on('click', function(e) {
+    //get value of which remove button div was pressed
+    //send that value to backend to delete
+
+   const name = e.target.parentElement.firstElementChild.innerText;
+    $.ajax('/menu/removed', { method: 'POST', data: {name}, success: function(data) {
+      console.log('Success', data);
+      //document.location.reload();
+      //refresh page with javascript document.location.reload();
+    }});
+  });
+
+
 });
 
