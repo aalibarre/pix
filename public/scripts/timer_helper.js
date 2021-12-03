@@ -19,7 +19,7 @@ const COLOR_CODES = {
 };
 let remainingPathColor = COLOR_CODES.info.color;
 
-const TIME_LIMIT = 60;
+const TIME_LIMIT = 240;
 //initally no time has passed, but this will count up
 let timePassed = 0;
 let timeLeft = TIME_LIMIT;
