@@ -1,3 +1,9 @@
+.timer-show {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .timer {
   display: none;
 }

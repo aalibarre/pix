@@ -4,6 +4,7 @@ $(document).ready(function() {
   }
   const timer = document.getElementById("timer");
   timer.innerHTML = `
+  <h2>Your Pickup is ready in:</h2>
   <div class="base-timer">
     <svg class="base-timer__svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
       <g class="base-timer__circle">
@@ -29,6 +30,7 @@ $(document).ready(function() {
   //check if a timer is already running in background
   if (!checkCookie()) {
     $('#timer').removeClass('timer');
+    $('#timer').toggleClass('timer-show');
     let time = getCookie('timer');
     //exists
     startTimer(Number(time));
@@ -36,6 +38,7 @@ $(document).ready(function() {
     setCookie('timer', TIME_LIMIT, TIME_LIMIT);
     //new
     $('#timer').removeClass('timer');
+    $('#timer').toggleClass('timer-show');
     startTimer(TIME_LIMIT);
   }
 });

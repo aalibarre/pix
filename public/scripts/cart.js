@@ -12,7 +12,7 @@
 
 //Helper Functions
 const cartCounter = function(obj, state) {
-  const cart = obj.closest('body').find('.cart-icon');
+  const cart = obj.closest('body').find('.cart-counter');
   //get current cart value
   let cartValue = Number(cart.text());
   console.log(cartValue);
