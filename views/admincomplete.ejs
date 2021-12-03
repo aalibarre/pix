@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 
+
   <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -40,12 +41,11 @@
   <p>
     <%= item.phone_number%>
   </p>
-  <form action="/menu/admincomplete" method="post" >
+  <form action="/menu/history" method="post" >
+    <br>
+    <button class="smsbutton">Order Complete</button>
   </form>
 
-  <br>
-    <button class="smsbutton">Order Complete</button>
-  <br>
   <% } %>
 
   </div>
