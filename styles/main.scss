@@ -1,3 +1,6 @@
+
+
+
 article {
   display: flex;
   flex-direction: column;
@@ -21,11 +24,11 @@ article {
 
   #navbar-cart:hover{
     color:black;
-background-color: turquoise;
+background-color: #ba935a;;;
     }
     #navbar-cart{
-      color:black;
-font-size: 26px;
+    color:black;
+    font-size: 26px;
       }
 
 
@@ -41,12 +44,58 @@ justify-content: center;
 align-items: center;
 margin-top: 2em;
 border-radius: 8px;
-box-shadow: 0px 4px 4px 0px turquoise;
+box-shadow: 0px 4px 4px 0px #461d58;;
 padding:3em;
 }
 
 .checkmark{
 font-size: 80px;
+}
+
+
+
+
+
+
+
+
+.meal-item {
+display: flex;
+flex-direction:  column;
+align-items: center;
+}
+
+.meal-image {
+
+}
+
+
+.meal-info-container {
+display: flex;
+flex-direction: row;
+justify-content: space-between;
+}
+
+.meal-cart-container {
+
+}
+
+.meal-quantity {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.add-cart-btn {
+}
+.order-name {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #461d58;
+color:white;
+padding: 1em;
+
 }
 /*article h2 {
   text-align: center;
