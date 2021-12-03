@@ -204,10 +204,10 @@ module.exports = (db) => {
         console.log('######Error######');
         console.log(err.message);
     });
-//sms to owner of new order
-// client.messages
-//          .create({body: 'A customer placed an order, please check your dashboard ', from: '+12284324910', to: '+16476496220'})
-//          .then(message => console.log(message.sid));
+    //sms to owner of new order
+    client.messages
+          .create({body: 'A customer placed an order, please check your dashboard ', from: '+12284324910', to: '+16476496220'})
+          .then(message => console.log(message.sid));
 
 
     //sms to owner of new order
@@ -368,7 +368,7 @@ console.log("i have been hit")
       //redirect order history or menu
       return res.redirect(`/menu/history`);
      });
-     
+
    //get route for order history
    router.get("/history", (req, res) => {
      //query db for active and past orders
