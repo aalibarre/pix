@@ -5,6 +5,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/styles/nav.css" type="text/css" />
   <%- include('partials/_links') %>
   <script type="text/javascript" src="/scripts/timer_check.js"></script>
 
@@ -13,7 +14,9 @@
 
 <body class="container">
   <%- include('partials/_header') %>
+
 <div id="timer" class="timer"></div>
+
     <main class="container col">
       <% for (let item of menu) { %>
         <article class="col gy-5">
@@ -47,5 +50,7 @@
           </form>
     </main>
 </body>
+
+
 
 </html>
