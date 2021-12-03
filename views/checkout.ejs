@@ -8,18 +8,12 @@
   <%- include('partials/_links') %>
     <title>Grandma's Creamery - Checkout</title>
 </head>
-<h3>Checkout</h3>
+<h3 style="text-align: center;">Checkout</h3>
 
 <body>
   <%- include('partials/_header') %>
     <% let subTotal=0;%>
       <div class="cart-container">
-        <header class="cart-header">
-          <div class="cart-title">
-            <h2>Pick Up Address</h2>
-            <p>Total quantity</p>
-          </div>
-        </header>
         <div class="cart-content">
           <% for (let order in listOfOrders) { %>
             <div class="cart-item">
@@ -74,7 +68,7 @@
             </div>
           </div>
 
-          <form method="POST" action="/menu/checkout">
+          <form style="text-align: center;" method="POST" action="/menu/checkout">
             <button type="submit" class="cart-checkout-btn">Place Order</button>
           </form>
 
