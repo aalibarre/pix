@@ -1,10 +1,20 @@
 // See: https://sass-lang.com/
+html {
+  background-color: #ecd595;
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
 body {
-  font-family: 'serif';
   font-size: 24px;
   margin-top: 5em;
+  background-color: #ecd595;
+
+
 }
 
-h1 {
-  text-align: center;
+h1, h2, h3, h4, h5{
+  color: #461d58;
+}
+
+p {
+  font-family: 'Varela Round', sans-serif;
 }

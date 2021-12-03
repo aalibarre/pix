@@ -38,16 +38,17 @@
           <div class="meal-image">
             <img class="menu-pics" src=<%=item.photo_url %> class="figure-img img-fluid-rounded" alt="picture of store
             item">
+
           </div>
           <div class="meal-info-container">
             <div class="meal-text">
-              <h3>
+              <h3 class="meal-price">
                 $<%= item.price / 100 %>
               </h3>
-              <h3>
+              <h3 class="meal-title">
                 <%= item.name %>
               </h3>
-              <p>
+              <p class="meal-description">
                 <%= item.description %>
               </p>
             </div>
