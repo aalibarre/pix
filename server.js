@@ -4,6 +4,7 @@
 //cookie
 //body
 // load .env data into process.env
+//comment dotenv when deploying to heroku
 require("dotenv").config();
 
 // Web server config

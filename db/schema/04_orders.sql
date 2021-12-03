@@ -10,5 +10,5 @@ CREATE TABLE orders (
   pending BOOLEAN NOT NULL DEFAULT TRUE,
   created_at DATE,
   cart_qty TEXT,
-  cart_price TEXT,
+  cart_price TEXT
 );

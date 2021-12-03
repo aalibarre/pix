@@ -238,7 +238,7 @@ module.exports = (db) => {
       }
     } else {
       //redirect to main (or show relevent error)
-      return res.redirect("/history");
+      return res.redirect("/menu/history");
     }
   });
 
@@ -328,6 +328,13 @@ module.exports = (db) => {
       .catch(err => {
         res.status(500).json({ error: err.message });
       });
+   });
+
+   //update session with timer value to keep track of time in background
+   router.post("/timer", (req, res) => {
+     req.session.timer = req.body;
+     console.log(req.session.timer);
+     res.status(200);
    });
    return router;
   }
