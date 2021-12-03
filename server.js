@@ -4,7 +4,8 @@
 //cookie
 //body
 // load .env data into process.env
-//require("dotenv").config();
+//comment dotenv when deploying to heroku
+require("dotenv").config();
 
 // Web server config
 const PORT = process.env.PORT || 8080;

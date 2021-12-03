@@ -4,7 +4,7 @@ const express = require('express');
 const router  = express.Router();
 const accountSid = process.env.ACCOUNTSID;
 const authToken = process.env.AUTHTOKEN;
-//const client = require('twilio')(accountSid, authToken);
+const client = require('twilio')(accountSid, authToken);
 
 module.exports = (db) => {
   // /menu routes
