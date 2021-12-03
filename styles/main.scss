@@ -44,7 +44,7 @@ justify-content: center;
 align-items: center;
 margin-top: 2em;
 border-radius: 8px;
-box-shadow: 0px 4px 4px 0px #461d58;;
+box-shadow: 0px 4px 4px 0px #ba935a;;
 padding:3em;
 }
 
@@ -88,15 +88,64 @@ justify-content: space-between;
 
 .add-cart-btn {
 }
-.order-name {
+.order-name{
+  box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  flex-direction: row;
+justify-content: space-around;
+align-items: flex-start;
   background-color: #461d58;
 color:white;
 padding: 1em;
 
 }
+.order-name :hoover {
+  background-color: white;
+color:#461d58;
+}
+
+.nav-link{
+color:white;
+}
+
+
+.nav-link:hover {
+  color:#ba935a;
+}
+
+.nav-link:focus, .nav-link:hover {
+  color:#ba935a;
+}
+
+
+.order-list{
+padding-right: 2em;
+padding-left: 2em;
+margin-right:25em;
+margin-left:2em;
+border:solid;
+}
+
+.smsbutton{
+    background: transparent;
+    text-align: center;
+    font-weight: bold;
+    box-shadow: 4px 5px 0 1px #bc945a;
+    border: 1.5px solid #ba935a;
+}
+
+.order-item{
+  background: transparent;
+  text-align: center;
+  font-weight: bold;
+  box-shadow: 4px 5px 0 1px #bc945a;
+  border: 1.5px solid #ba935a;
+}
+
+
+
+
+
 /*article h2 {
   text-align: center;
 }
