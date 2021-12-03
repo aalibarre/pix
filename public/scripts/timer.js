@@ -30,6 +30,7 @@ $(document).ready(function() {
   //check if a timer is already running in background
   if (!checkCookie()) {
     $('#timer').removeClass('timer');
+    $('#timer').toggleClass('timer-show');
     let time = getCookie('timer');
     //exists
     startTimer(Number(time));
@@ -37,6 +38,7 @@ $(document).ready(function() {
     setCookie('timer', TIME_LIMIT, TIME_LIMIT);
     //new
     $('#timer').removeClass('timer');
+    $('#timer').toggleClass('timer-show');
     startTimer(TIME_LIMIT);
   }
 });

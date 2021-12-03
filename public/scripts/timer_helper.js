@@ -56,6 +56,7 @@ function startTimer(time) {
     setRemainingPathColor(timeLeft);
     if (checkCookie()) {
       $('#timer').addClass('timer');
+      $('#timer').toggleClass('timer-show');
       clearTimer();
     }
   }, 1000);

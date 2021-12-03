@@ -2,6 +2,7 @@ $(document).ready(function() {
   //continue running timer in background
   if (!checkCookie()) {
     $('#timer').removeClass('timer');
+    $('#timer').toggleClass('timer-show');
     timeLeft = Number(getCookie("timer"));
   }
   const timer = document.getElementById("timer");
