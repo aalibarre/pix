@@ -301,7 +301,8 @@ module.exports = (db) => {
           console.log(e.message);
       });
   });
-  router.post("/order", (req, res) => {
+
+  router.post("/admincomplete", (req, res) => {
     db.query(`SELECT orders.id, orders.pending, orders.created_at, users.username, users.phone_number
     FROM orders
     JOIN users ON users.id = user_id
@@ -334,7 +335,8 @@ module.exports = (db) => {
       return res.redirect(`/menu/admincomplete`);
      });
 
-  router.post("/menu/admincomplete", (req, res) => {
+  router.post("/history", (req, res) => {
+console.log("i have been hit")
     db.query(`SELECT orders.id, orders.pending, orders.created_at, users.username, users.phone_number
             FROM orders
             JOIN users ON users.id = user_id
@@ -364,8 +366,9 @@ module.exports = (db) => {
       //save to order history
       //send sms to customer with order confirmation
       //redirect order history or menu
-      return res.redirect(`/`);
+      return res.redirect(`/menu/history`);
      });
+     
    //get route for order history
    router.get("/history", (req, res) => {
      //query db for active and past orders
