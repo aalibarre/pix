@@ -1,48 +1,57 @@
 <!DOCTYPE html>
 <html>
 
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <%- include('partials/_links') %>
-    <title>Grandma's Creamery - Checkout</title>
-</head>
+
+  <html>
+
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <%- include('partials/_links') %>
+      <title>Grandma's Creamery - Checkout</title>
+  </head>
 
 
 
+  <body class= "mainbox-orderpage">
+    <%- include('partials/_header') %>
+  <div>
 
-<body class= "mainbox-orderpage">
-  <%- include('partials/_header') %>
-<div>
-<div class="order-name">
-  <h2>COMPLETED ORDERS</h2>
-</div>
-<div class="order-list">
-  <% for(let item of order) { %>
-<p>
-    Order Id #<%= item.id %>
-</p>
-<p>
-  Order Placed At (<%= item.created_at.toDateString() %>)
-</p>
-<p>
-  Order Complete = <%= item.pending%>
-</p>
-<p>
-  <%= item.username%>
-</p>
-<p>
-  <%= item.phone_number%>
-</p>
-<button>Complete</button>
-<% } %>
-</div>
+    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+  <div class="order-name">
+    <a class="nav-link active" aria-current="page"  href="/menu/order"> <strong>Order In Progress</strong></a>
+    <a class="nav-link active" aria-current="page"  href="/menu/admincomplete"> <strong>Order Complete</strong></a>
+  </ul>
+  </div>
+  <br>
+  <div class="order-list">
+    <% for(let item of order) { %>
+  <br>
+  <p class="order-item">
+      Order Id #<%= item.id %>
+  </p>
+  <p>
+    Order Placed At (<%= item.created_at.toDateString() %>)
+  </p>
+  <p>
+      Order Complete = <%= item.pending%>
+  </p>
+  <p>
+    <%= item.username%>
+  </p>
+  <p>
+    <%= item.phone_number%>
+  </p>
+  <form action="/menu/admincomplete" method="post" >
+  </form>
 
+  <br>
+    <button class="smsbutton">Order Complete</button>
+  <br>
+  <% } %>
 
-
-
-</div>
+  </div>
 
 
 </body>
