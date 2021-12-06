@@ -5,23 +5,23 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="/styles/main.css" type="text/css" />
+<!--   <link rel="stylesheet" href="/styles/main.css" type="text/css" />
 
-  <link rel="stylesheet" href="/styles/nav.css" type="text/css" />
+  <link rel="stylesheet" href="/styles/nav.css" type="text/css" /> -->
   <%- include('partials/_links') %>
     <script type="text/javascript" src="/scripts/timer_check.js"></script>
 
     <title>Grandma's Creamery - Menu</title>
 </head>
 
-<body class="container">
+<body class="container-fluid">
   <%- include('partials/_header') %>
     <div id="timer" class="timer"></div>
 
-    <div class="meal-container">
+    <div class="row meal-container">
       <% for (let item of menu) { %>
 
-        <article class="meal-item">
+        <article class="col-xl-3 meal-item">
           <div class="meal-image">
             <img class="menu-pics" src=<%=item.photo_url %> class="figure-img img-fluid-rounded" alt="picture of store
             item">

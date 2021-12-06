@@ -1,18 +1,24 @@
-nav.scss
-header {
-    .shadow {
+nav.scss header {
+  .shadow {
     font-size: 1em;
-    box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
-    }
-
-    .navbar-brand {
-      font-size: 1em;
-      font-weight: 700;
-    }
-
-    #nav-barcolor{
-      background-color:transparent;
-      color:turquoise !important;
-      }
-
+    box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px,
+      rgba(0, 0, 0, 0.23) 0px 6px 6px;
   }
+
+  .navbar-brand {
+    font-size: 1em;
+    font-weight: 700;
+  }
+
+  #nav-barcolor {
+    background-color: transparent;
+    color: turquoise !important;
+  }
+}
+
+@media (min-width: 992px) {
+  #navbar-cart {
+    position: absolute;
+    right: 0;
+  }
+}
