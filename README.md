@@ -5,12 +5,17 @@ Pix is an online ordering web application built for a client, Grandma's Creamery
 | Front-End  | Back-End | Database  | Deployment |
 | ------------- | ------------- | ---------- | --------- |
 | jQuery | Express  | postgreSQL  | Heroku|
-| SASS | EJS | | |
-| HTML | | | |
-|  | |   | |
+| Bootstrap | EJS | | |
+| SASS | | | |
 
 ## Live Link
 https://vast-shore-37866.herokuapp.com/menu
+
+## Demo
+THe menu page is responsive for mobile and tablets.
+![menu page](https://github.com/aalibarre/pix/blob/master/docs/menu.gif?raw=true)
+A twilio text is sent to customer and restaurant when order is successfully placed. A timer shows when order is ready.
+![checkout page](https://github.com/aalibarre/pix/blob/master/docs/checkout.gif?raw=true)
 
 ## Packages
 ```json
